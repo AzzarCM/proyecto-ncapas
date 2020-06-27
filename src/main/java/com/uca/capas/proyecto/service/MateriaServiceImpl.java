@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.stereotype.Service;
 import com.uca.capas.proyecto.domain.Materia;
 import com.uca.capas.proyecto.repositories.MateriaRepo;
 
+@Service
 public class MateriaServiceImpl implements MateriaService {
 	
 
 	@Autowired
 	MateriaRepo materiaRepo;
 
-	@Transactional
 	@Override
 	public List<Materia> findAllMaterias() throws DataAccessException {
 		// TODO Auto-generated method stub
