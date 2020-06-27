@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlms:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ver Materias</title>
+</head>
+<body>
+	
+	<h1>Listado de Materias</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Año</th>
+				<th>Ciclo</th>
+				<th>Nota</th>
+				<th>Resultado</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="m : ${materias}">
+				<td th:text="${m.anio}"></td>
+				<td th:text="${m.ciclo}"></td>
+				<td th:text="${m.nota}"></td>
+				<td th:text="${m.resultado}"></td>
+			</tr>
+		</tbody>
+	</table><br>
+	
+
+</body>
+</html></html>
