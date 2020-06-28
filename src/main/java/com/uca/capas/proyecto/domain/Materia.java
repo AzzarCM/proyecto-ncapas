@@ -30,20 +30,26 @@ public class Materia {
 	 private Catalogo_materias id_catmateria;
 	
 
-	@NotNull(message="No puede estar vacio")
-	@Size(message="Año desde el 2005 hasta la fecha", max=2020, min=2005)
+	//@NotNull(message="No puede estar vacio")
+	//@Size(message="Año desde el 2005 hasta la fecha", max=2020, min=2005)
 	@Column(name="anio")
 	private Integer anio;
 	
 	//Combobox 01,02,03
-	@NotNull(message="No puede estar vacio")
+	//@NotNull(message="No puede estar vacio")
 	@Column(name="ciclo")
 	private Integer ciclo;
 	
-	@NotNull(message="No puede estar vacio")
-	@Size(message="Nota desde 0 hasta 10", max=10, min=0)
+	//@NotNull(message="No puede estar vacio")
+	//@Size(message="Nota desde 0 hasta 10", max=10, min=0)
 	@Column(name="nota")
 	private Float nota;
+	
+	
+	//@NotNull(message="No puede estar vacio")
+	@Column(name="id_estudiante")
+	private Integer id_estudiante;
+	
 	
 	@Column(name="resultado")
 	private String resultado;
@@ -53,6 +59,15 @@ public class Materia {
 	}
 	
 	
+
+	
+	public Integer getId_estudiante() {
+		return id_estudiante;
+	}
+
+	public void setId_estudiante(Integer id_estudiante) {
+		this.id_estudiante = id_estudiante;
+	}
 
 	public Integer getId_materia() {
 		return id_materia;
