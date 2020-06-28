@@ -23,7 +23,7 @@ public class MateriaController {
 		List<Materia> materias = null;
 
 		try {
-			materias = materiaService.findAllMaterias();
+			materias = materiaService.findAllMateriasEst(2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

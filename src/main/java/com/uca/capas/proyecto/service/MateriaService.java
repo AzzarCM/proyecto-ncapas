@@ -15,4 +15,6 @@ public interface MateriaService {
 	public void save(Materia materia) throws DataAccessException;
 
 	void delete(Integer codigoMateria) throws DataAccessException;
+
+	List<Materia> findAllMateriasEst(Integer code) throws DataAccessException;
 }

@@ -25,13 +25,11 @@ public class Materia {
 	@Column(name="id_materia")
 	private Integer id_materia;
 	
-	@NotNull(message="No puede estar vacio")
-	@Column(name="id_catmateria")
-	private Integer id_catmateria;
+	 @ManyToOne(fetch= FetchType.LAZY)
+	 @JoinColumn(name="id_catmateria")
+	 private Catalogo_materias id_catmateria;
 	
-	
-	private String nombre_mat;
-	
+
 	@NotNull(message="No puede estar vacio")
 	@Size(message="Año desde el 2005 hasta la fecha", max=2020, min=2005)
 	@Column(name="anio")
@@ -64,13 +62,7 @@ public class Materia {
 		this.id_materia = id_materia;
 	}
 
-	public Integer getId_catmateria() {
-		return id_catmateria;
-	}
-
-	public void setId_catmateria(Integer id_catmateria) {
-		this.id_catmateria = id_catmateria;
-	}
+	
 
 	public Integer getAnio() {
 		return anio;
@@ -104,15 +96,20 @@ public class Materia {
 		this.resultado = resultado;
 	}
 
-	
-	public String getNombre_mat() {
-		
-		return nombre_mat;
+
+	public Catalogo_materias getId_catmateria() {
+		return id_catmateria;
 	}
 
-	public void setNombre_mat(String nombre_mat) {
-		this.nombre_mat = nombre_mat;
+
+
+
+	public void setId_catmateria(Catalogo_materias id_catmateria) {
+		this.id_catmateria = id_catmateria;
 	}
+
+	
+	
 	
 	
 	
