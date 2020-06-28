@@ -18,6 +18,13 @@ public class Municipio {
     @OneToMany(mappedBy="municipio",fetch= FetchType.EAGER)
     private List<CatalogoCE> catalogoCEList;
 
+    @OneToMany(mappedBy = "municipio", fetch = FetchType.EAGER)
+    private List<Usuario> usuarioList;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="id_departamento")
+    private Departamento departamento;
+
     public Integer getIdMunicipio() {
         return idMunicipio;
     }
