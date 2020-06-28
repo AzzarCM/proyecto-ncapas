@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Agregar Materia</title>
+</head>
+<body>
+	
+	<h1>Guardar Materia</h1>
+	<form method="post" th:action="@{/guardarMat}" th:object="${materia}">
+		
+			
+		<label>Catalogo de materias: </label>
+		<select th:field="*{id_catmateria}">
+			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}"></th></option>
+		</select><br>
+		
+		<label>Año: <input type="number" id="anio" th:field="*{anio}" ></label><br>
+		<span th:errors="${materia.anio}" style="color:  #E81505;"></span><br>
+		
+				
+		<label>Ciclo: </label>
+		<select th:field="*{ciclo}">
+			<option th:value="1" ><th th:text="01"></th></option>
+			<option th:value="2" ><th th:text="02"></th></option>
+			<option th:value="1" ><th th:text="03"></th></option>
+		</select><br>
+		
+		<label>Nota: <input type="number" id="nota" th:field="*{nota}" ></label><br>
+		<span th:errors="${materia.nota}" style="color:  #E81505;"></span><br>
+				
+			
+		<br>
+			
+		
+		<input type="submit" value="Guardar">
+	</form>
+
+</body>
+</html></html>

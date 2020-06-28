@@ -1,4 +1,10 @@
 package com.uca.capas.proyecto.service;
 
-public class ExpedienteService {
+import com.uca.capas.proyecto.domain.Expediente;
+import com.uca.capas.proyecto.domain.Materia;
+import org.springframework.dao.DataAccessException;
+
+public interface ExpedienteService {
+
+    public void save(Expediente expediente) throws DataAccessException;
 }

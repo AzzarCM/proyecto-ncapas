@@ -21,6 +21,13 @@ public class MateriaServiceImpl implements MateriaService {
 		return materiaRepo.findAll();
 	}
 
+	
+	@Override
+	public List<Materia> findAllMateriasEst(Integer code) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return materiaRepo.mostrarMatEst(code);
+	}
+
 	@Override
 	public Materia findOne(Integer code) throws DataAccessException {
 		return materiaRepo.getOne(code);

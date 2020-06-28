@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expediente</title>
+</head>
+<body>
+    <form method="post" th:action="@{filtrar}">
+        <label>id municipio: </label>
+        <input type="number" name="codigo"><br>
+        <input type="submit" value="filtrar">
+    </form>
+    <br>
+
+    <form method="post" th:action="@{insertar}" th:object="${expediente}">
+        <label>Nombre: </label><input type="text" th:field="*{nombres}"> <br>
+        <label>Apellido: </label><input type="text" th:field="*{apellidos}"> <br>
+        <label>Carne: </label><input type="text" th:field="*{carneMin}"> <br>
+        <label>fecha: </label><input type="text" th:field="*{fechaNacimiento}"> <br>
+        <label>edad: </label><input type="number" th:field="*{edad}"> <br>
+        <label>direccion: </label><input type="text" th:field="*{direccion}"> <br>
+        <label>fijo: </label><input type="text" th:field="*{telFijo}"> <br>
+        <label>movil: </label><input type="text" th:field="*{telMovil}"> <br>
+        <label>papa: </label><input type="text" th:field="*{nombrePadre}"> <br>
+        <label>mama: </label><input type="text" th:field="*{nombreMadre}"> <br>
+        <label>Institucion: </label><select th:field="*{institucion}"> <br>
+            <th:block th:each="centro, row: ${centros}">
+                <option th:value="${centro.nombre}" th:text="${centro.nombre}"></option>
+        </select><br>
+        <br>
+        <input type="submit" value="insertar">
+    </form>
+
+</body>
+</html>
