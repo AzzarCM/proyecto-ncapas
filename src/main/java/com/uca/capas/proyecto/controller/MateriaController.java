@@ -70,8 +70,18 @@ public class MateriaController {
 		ModelAndView mav = new ModelAndView();
 
 		if(result.hasErrors()) {
+			List<Catalogo_materias> catMaterias = null;
+
+			try {
+				catMaterias = catMateriaService.findAllCatMat();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			mav.addObject("catMaterias", catMaterias);
 			mav.setViewName("InsertMat");
-		} else {
+		} 
+		else {
 			
 			if(c.getNota()>=6) {
 				c.setResultado("APROBADO");
@@ -82,9 +92,10 @@ public class MateriaController {
 			
 			c.setId_estudiante(2);
 			
+			List<Materia> materias = null;
+
 			materiaService.save(c);
 			
-			List<Materia> materias = null;
 			try {
 				materias = materiaService.findAllMateriasEst(2);
 			} catch (Exception e) {
