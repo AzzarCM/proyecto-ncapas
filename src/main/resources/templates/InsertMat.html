@@ -12,7 +12,7 @@
 			
 		<label>Catalogo de materias: </label>
 		<select th:field="*{id_catmateria}">
-			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.id_catmateria}"></th></option>
+			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}"></th></option>
 		</select><br>
 		
 		<label>Año: <input type="number" id="anio" th:field="*{anio}" ></label><br>
