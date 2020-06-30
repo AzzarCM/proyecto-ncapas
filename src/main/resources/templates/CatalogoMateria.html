@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Materias</title>
+</head>
+<body>
+    <h1>Listado de Materias</h1>
+    <a href="/crearMateria">Nueva Materia</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Accion</th>
+            <th>Codigo</th>
+            <th>Descripcion</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${materias}">
+            <td><a th:href="@{'/materia?id=' + ${m.id_catmateria}}">Editar</a></td>
+            <td th:text="${m.id_catmateria}"></td>
+            <td th:text="${m.nombre}"></td>
+            <td th:text="${m.estadoDelegate}"></td>
+        </tr>
+        </tbody>
+    </table><br>
+</body>
+</html>

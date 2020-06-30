@@ -13,7 +13,6 @@ import com.uca.capas.proyecto.repositories.MateriaRepo;
 
 @Service
 public class CatMateriaServiceImpl implements CatMateriaService {
-	
 
 	@Autowired
 	CatMateriaRepo catMateriaRepo;
@@ -26,21 +25,13 @@ public class CatMateriaServiceImpl implements CatMateriaService {
 	@Override
 	public Catalogo_materias findOne(Integer code) throws DataAccessException {
 		return catMateriaRepo.getOne(code)	;
-}
+	}
 
 	@Override
 	public void save(Catalogo_materias Catmateria) throws DataAccessException {
+		System.out.println("ID: " + Catmateria.getId_catmateria());
+		System.out.println("NOMBRE: " + Catmateria.getNombre());
+		System.out.println("ESTADO: " + Catmateria.getEstadoDelegate());
 		catMateriaRepo.save(Catmateria);
 	}
-
-	@Override
-	public void delete(Integer codigoCatMateria) throws DataAccessException {
-		catMateriaRepo.deleteById(codigoCatMateria);
-		
-	}
-
-	
-
-
-
 }

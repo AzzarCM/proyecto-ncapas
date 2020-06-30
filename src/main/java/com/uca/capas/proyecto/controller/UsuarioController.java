@@ -106,9 +106,7 @@ public class UsuarioController {
     }
 
     public Integer CalcularEdad(Date fechaNacimiento){
-        //SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date d2 = new Date();
-        //Date d1 = null;
         Integer edad = 0;
         try {
             long diff = d2.getTime() - fechaNacimiento.getTime();

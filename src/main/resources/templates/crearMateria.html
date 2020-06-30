@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear materia</title>
+</head>
+<body>
+<h1> Nueva materia</h1>
+<form method="post" th:action="@{/saveMateria}" th:object="${materia}">
+    <label>Descripcion: <input type="text" id="descripcion" th:field="*{nombre}" ></label><br>
+    <label>Estado: </label>
+    <input type="checkbox" class="" th:field="*{estado}" th:value = "${true}"><br>
+    <input type="submit" value="Crear">
+</form>
+</body>
+</html>

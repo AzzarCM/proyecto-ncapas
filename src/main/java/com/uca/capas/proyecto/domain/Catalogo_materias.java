@@ -1,5 +1,6 @@
 package com.uca.capas.proyecto.domain;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,15 +23,14 @@ public class Catalogo_materias {
 	private String nombre;
 	
 	@Column(name="estado")
-	private String estado;
+	private Boolean estado;
 
 	
 	
 	public Catalogo_materias() {
 	}
 
-
-	public Catalogo_materias(Integer id_catmateria, String nombre, String estado) {
+	public Catalogo_materias(Integer id_catmateria, String nombre, Boolean estado) {
 		super();
 		this.id_catmateria = id_catmateria;
 		this.nombre = nombre;
@@ -57,13 +57,19 @@ public class Catalogo_materias {
 		this.nombre = nombre;
 	}
 
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
 
 	
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
+	}
+
+	public String getEstadoDelegate() {
+		if (this.estado == null) return "";
+		else
+			return estado ? "Activo" : "Inactivo";
 	}
 	
 	
