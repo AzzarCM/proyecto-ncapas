@@ -1,8 +1,11 @@
 package com.uca.capas.proyecto.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(schema = "public", name = "municipio")
@@ -16,11 +19,12 @@ public class Municipio {
     private String nombre;
 
     @OneToMany(mappedBy="municipio",fetch= FetchType.EAGER)
-    private List<CatalogoCE> catalogoCEList;
+    private Set<CatalogoCE> catalogoCEList;
 
     @OneToMany(mappedBy = "municipio", fetch = FetchType.EAGER)
-    private List<Usuario> usuarioList;
+    private Set<Usuario> usuarioList;
 
+    @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_departamento")
     private Departamento departamento;
@@ -41,13 +45,27 @@ public class Municipio {
         this.nombre = nombre;
     }
 
-    public List<CatalogoCE> getCatalogoCEList() {
+    public Set<CatalogoCE> getCatalogoCEList() {
         return catalogoCEList;
     }
 
-    public void setCatalogoCEList(List<CatalogoCE> catalogoCEList) {
+    public void setCatalogoCEList(Set<CatalogoCE> catalogoCEList) {
         this.catalogoCEList = catalogoCEList;
     }
 
-    //private Departamento departamento;
+    public Set<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(Set<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
 }

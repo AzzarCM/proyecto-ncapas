@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <h1>Nuevo usuario</h1>
+    <form method="post" th:action="@{/insertarUsuario}" th:object="${usuario}">
+        <label>Nombre: <input type="text" id="nombre" th:field="*{nombre}" ></label><br>
+        <span th:errors="*{nombre}" style="color:  #E81505;"></span><br>
+
+        <label>Apellido: <input type="text" id="apellido" th:field="*{apellido}" ></label><br>
+        <span th:errors="*{apellido}" style="color:  #E81505;"></span><br>
+
+        <label>Fecha de nacimiento: <input type="text" id="fechaNacimiento" th:field="*{fechaNacimiento}" ></label><br>
+        <span th:errors="*{fechaNacimiento}" style="color:  #E81505;"></span><br>
+        <script type="text/javascript">
+            $(function () {
+                $('#fechaNacimiento').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+            });
+        </script>
+        <label>Departamento: </label>
+        <select id="departamentoSelect">
+            <option value="0"> - Seleccione un departamento - </option>
+            <option th:each="d: ${departamento}"  th:value="${d.idDepartamento}"><th th:text="${d.nombre}"></th></option>
+        </select><br><br>
+
+        <label>Municipio: </label>
+        <select th:field="*{municipio.idMunicipio}" id="municipioSelect">
+            <option value="0"> - Seleccione un municipio - </option>
+        </select><br><br>
+
+        <label>Direccion: <input type="text" id="direccion" th:field="*{direccion}"></label><br>
+        <span th:errors="*{direccion}" style="color:  #E81505;"></span><br>
+
+        <label>Nombre de usuario: <input type="text" id="nombre_usuario" th:field="*{nombre_usuario}"></label><br>
+        <span th:errors="*{nombre_usuario}" style="color:  #E81505;"></span><br>
+
+        <label>contraseña: <input type="text" id="contrasenia" th:field="*{contrasenia}"></label><br>
+        <span th:errors="*{contrasenia}" style="color:  #E81505;"></span><br>
+
+        <label>Rol: </label>
+        <select th:field="*{rol.idRol}">
+            <option th:each="r: ${rol}" th:value="${r.idRol}"><th th:text="${r.nombre}"></th></option>
+        </select>
+
+        <input type="submit" value="Guardar">
+    </form>
+
+</body>
+<script>
+    $("select#departamentoSelect").change(function() {
+        let departamentoValue = $("#departamentoSelect").val();
+        $.ajax({
+            url: '/municipios?id=' + departamentoValue,
+            method: 'GET',
+        }).done(
+            function (municipios) {
+            console.log(municipios)
+            let stateSelect = $('#municipioSelect');
+            stateSelect.find('option').remove();
+            stateSelect.append("<option value=0 > - Seleccione un municipio - </option>")
+            for (let i = 0; i < municipios.length; i++) {
+                stateSelect.append("<option value=" + municipios[i].idMunicipio + " >" + municipios[i].nombre + "</option>")
+            }
+        }).fail(
+            function() {
+                alert('error inesperado');
+            }
+        )
+    })
+</script>
+</html>

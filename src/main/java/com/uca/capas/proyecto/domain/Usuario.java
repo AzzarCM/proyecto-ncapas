@@ -1,14 +1,18 @@
 package com.uca.capas.proyecto.domain;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(schema = "public", name = "usuario")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -24,11 +28,12 @@ public class Usuario {
     @Column(name = "apellido")
     private String apellido;
 
-    @NotEmpty(message = "El campo de la fecha no debe estar vacio")
+    @NotNull(message = "El campo Fecha no puede quedar vacio")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @NotEmpty(message = "El campo edad no debe estar vacio")
+
     @Column(name = "edad")
     private Integer edad;
 
@@ -38,14 +43,14 @@ public class Usuario {
     private String direccion;
 
     @Column(name = "estado")
-    private String estado;
+    private Boolean estado;
 
     @Size(message = "El campo no debe contener mas de 30 caracteres", max = 30)
     @NotEmpty(message = "El campo username no debe estar vacio")
     @Column(name = "nombre_usuario")
     private String nombre_usuario;
 
-    @Size(message = "El campo no debe contener mas de 30 caracteres", max = 30)
+    @Size(message = "El campo no debe contener mas de 200 caracteres", max = 200)
     @NotEmpty(message = "El campo contrasenia no debe estar vacio")
     @Column(name = "contrasenia")
     private String contrasenia;
@@ -53,6 +58,11 @@ public class Usuario {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_municipio")
     private Municipio municipio;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
+
 
     public Usuario() { }
 
@@ -80,10 +90,9 @@ public class Usuario {
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public String getEstado() { return estado; }
+    public Boolean getEstado() { return estado; }
 
-    public void setEstado(String estado) { this.estado = estado; }
-
+    public void setEstado(Boolean estado) { this.estado = estado; }
     public String getNombre_usuario() { return nombre_usuario; }
 
     public void setNombre_usuario(String nombre_usuario) { this.nombre_usuario = nombre_usuario; }
@@ -91,4 +100,26 @@ public class Usuario {
     public String getContrasenia() { return contrasenia; }
 
     public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
+
+    public String getEstadoDelegate() {
+        if (this.estado == null) return "";
+        else
+            return estado ? "Activo" : "Inactivo";
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 }

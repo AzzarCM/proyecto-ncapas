@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>BIENVENIDO</h1>
+    <div th:if="${rol == 'Administrador'}">
+        <input type="submit" value="Materias"><br>
+        <input type="submit" value="Centro Escolar"><br>
+        <input type="submit" value="Usuario"><br>
+    </div>
+    <div th:if="${rol == 'Coordinador'}">
+        <input type="submit" value="Expediente"><br>
+        <input type="submit" value="Materias cursadas"><br>
+    </div>
+</body>
+</html>
