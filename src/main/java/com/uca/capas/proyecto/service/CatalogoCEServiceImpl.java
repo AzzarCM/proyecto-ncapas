@@ -23,4 +23,14 @@ public class CatalogoCEServiceImpl implements CatalogoCEService {
     public List<CatalogoCE> filtrarCE(Integer codigo) throws DataAccessException {
         return catalogoCE.filtrarCE(codigo);
     }
+
+    @Override
+    public CatalogoCE findOne(Integer id) throws DataAccessException {
+        return catalogoCE.getOne(id);
+    }
+
+    @Override
+    public void save(CatalogoCE escuela) throws DataAccessException {
+        catalogoCE.save(escuela);
+    }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar centro escolar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1> Editar centro escolar</h1>
+<form method="post" th:action="@{/saveEscuela}" th:object="${escuela}">
+    <input th:field="*{idCentroEscolar}" hidden><br>
+    <label>Codigo: <span th:text="*{idCentroEscolar}"></span></label><br>
+    <label>Descripcion: <input type="text" id="descripcion" th:field="*{nombre}" ></label><br>
+
+    <label>Departamento: </label>
+    <select id="departamentoSelect">
+        <option th:each="d: ${departamento}"  th:value="${d.idDepartamento}"
+                th:text="${d.nombre}"
+                th:selected="${d.idDepartamento} == *{municipio.departamento.idDepartamento}"></option>
+    </select><br><br>
+
+    <label>Municipio: </label>
+    <select th:field="*{municipio.idMunicipio}" id="municipioSelect">
+        <option th:text="*{municipio.nombre}" th:value="*{municipio.idMunicipio}"></option>
+    </select><br><br>
+
+    <label>Estado: </label>
+    <input type="checkbox" class="" th:field="*{estado}" th:value = "${true}"><br>
+    <input type="submit" value="Actualizar">
+</form>
+</body>
+<script>
+    $("select#departamentoSelect").change(function() {
+        let departamentoValue = $("#departamentoSelect").val();
+        $.ajax({
+            url: '/municipios?id=' + departamentoValue,
+            method: 'GET',
+        }).done(
+            function (municipios) {
+                console.log(municipios)
+                let stateSelect = $('#municipioSelect');
+                stateSelect.find('option').remove();
+                stateSelect.append("<option value=0 > - Seleccione un municipio - </option>")
+                for (let i = 0; i < municipios.length; i++) {
+                    stateSelect.append("<option value=" + municipios[i].idMunicipio + " >" + municipios[i].nombre + "</option>")
+                }
+            }).fail(
+            function() {
+                alert('error inesperado');
+            }
+        )
+    })
+</script>
+</html>

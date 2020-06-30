@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Centro Escolares</title>
+</head>
+<body>
+<h1>Listado de Centros Escolares</h1>
+<a href="/crearCE">Nuevo Centro Escolar</a>
+<table>
+    <thead>
+    <tr>
+        <th>Accion</th>
+        <th>Codigo</th>
+        <th>Descripcion</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e : ${escolares}">
+        <td><a th:href="@{'/escuela?id=' + ${e.idCentroEscolar}}">Editar</a></td>
+        <td th:text="${e.idCentroEscolar}"></td>
+        <td th:text="${e.nombre}"></td>
+        <td th:text="${e.estadoDelegate}"></td>
+    </tr>
+    </tbody>
+</table><br>
+</body>
+</html>

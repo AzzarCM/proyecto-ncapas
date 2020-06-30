@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,15 @@ public class MunicipioController {
 
     @GetMapping("/municipios")
     public @ResponseBody List<Municipio> getMunicipios(@RequestParam int id){
-        return municipioService.findById(id);
+        List<Municipio> municipiosLimpios = new ArrayList<>(), municipiosSucios = municipioService.findById(id);
+        
+        for(Municipio mun : municipiosSucios){
+            Municipio aux = new Municipio();
+            aux.setIdMunicipio(mun.getIdMunicipio());
+            aux.setNombre(mun.getNombre());
+            municipiosLimpios.add(aux);
+        }
+        return municipiosLimpios;
 
     }
 }
