@@ -27,6 +27,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/registroUsuario", "/login").permitAll()
                 .antMatchers("/index").hasAnyAuthority("Administrador", "Coordinador")
+                .antMatchers("/usuarios").hasAuthority("Administrador")
+                .antMatchers("/usuario").hasAuthority("Administrador")
+                .antMatchers("/crearUsuario").hasAuthority("Administrador")
+                .antMatchers("/materias").hasAuthority("Administrador")
+                .antMatchers("/materia").hasAuthority("Administrador")
+                .antMatchers("/crearMateria").hasAuthority("Administrador")
+                .antMatchers("/escuela").hasAuthority("Administrador")
+                .antMatchers("/escolares").hasAuthority("Administrador")
+                .antMatchers("/crearCE").hasAuthority("Administrador")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -44,10 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     if(exp.getClass().isAssignableFrom(BadCredentialsException.class)){
                         System.out.println("Invalid username or password.");
+                        res.sendRedirect("/login?error");
                     }else{
-                        System.out.println("Unknown error - "+exp.getMessage());
+                        res.sendRedirect("/login?actividad");
                     }
-                    res.sendRedirect("/login?error"); // Redirect user to login page with error message.
+                     // Redirect user to login page with error message.
                 })
                 //.failureUrl("/login?error")
                 .and()

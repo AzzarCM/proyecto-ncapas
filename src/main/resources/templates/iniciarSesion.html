@@ -5,11 +5,25 @@
     <title>Inicio de sesión</title>
     <link href="css/personalizado.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+            <div th:if="${param.error}" class="alert alert-dismissible alert-danger mt-5 text-center">
+                <strong>Oh no!  Credenciales incorrectas.</strong>
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-dismissible alert-danger mt-5 text-center">
+                <strong>Se ha cerrado sesion.</strong>
+            </div>
+
+            <div th:if="${param.actividad}" class="alert alert-dismissible alert-danger mt-5 text-center">
+                <strong>Tu cuenta se encuentra inactiva </strong><i class="fa fa-frown-o ml-2"></i>
+            </div>
+
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Iniciar sesión</h5>
@@ -32,14 +46,6 @@
         </div>
     </div>
 </div>
-
-    <div th:if="${param.error}">
-        Invalid username and password
-    </div>
-
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
 
 </body>
 </html>

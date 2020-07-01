@@ -18,14 +18,14 @@
                             <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/escolares"> Centros escolares </a>
                             <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/usuarios"> Usuarios </a>
                         </div>
+                        <div th:if="${rol == 'Coordinador'}">
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="#"> Expediente </a>
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="#"> Materias cursadas </a>
+                        </div>
                         <hr class="my-4">
                         <form name="logoutForm" th:action="@{/logout}" method="post">
                             <input type="submit" class="btn btn-lg btn-google btn-block text-uppercase" value="Cerrar Sesión">
                         </form>
-                        <div th:if="${rol == 'Coordinador'}">
-                            <input type="submit" value="Expediente"><br>
-                            <input type="submit" value="Materias cursadas"><br>
-                        </div>
                     </div>
                 </div>
             </div>

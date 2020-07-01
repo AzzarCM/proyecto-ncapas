@@ -7,11 +7,15 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
+
 <div class="container col-md-6">
     <br>
+    <div th:if="${error}" class="alert alert-dismissible alert-danger">
+        <strong>Oh no!</strong> Ese usuario ya existe.
+    </div>
     <div class="jumbotron">
         <h1 th:text="${titulo}"></h1>
-        <form method="post" th:action="@{/${ruta}}" th:object="${usuario}">
+        <form method="post" th:action="@{'/'+${ruta}}" th:object="${usuario}">
             <div class="form-group">
                 <label class="col-form-label">Nombre</label>
                 <input type="text" class="form-control"  placeholder="Ingrese el nombre" th:field="*{nombre}">
@@ -78,7 +82,7 @@
                     </select>
                 </th>
             </div>
-            <div class="form-group">
+            <div th:if="${edit}" class="form-group">
                 <label class="col-form-label">Estado</label>
                 <div class="custom-control custom-radio">
                     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value=true >
@@ -89,9 +93,12 @@
                     <label class="custom-control-label" for="customRadio2">Inactivo</label>
                 </div>
             </div>
-            <div class="btn-toolbar" role="toolbar">
+            <div class="btn-toolbar mt-5" role="toolbar">
+                <div class="btn-group mr-5" role="group" aria-label="Second group">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Guardar"/>
+                </div>
                 <div class="btn-group mr-5" role="group" aria-label="Third group">
-                    <input type="submit" class="btn btn-primary" value="Guardar"/>
+                    <a class="btn btn-warning btn-lg" th:href="@{'/'+${url}}"><span th:text="${btn}"></span></a>
                 </div>
             </div>
         </form>

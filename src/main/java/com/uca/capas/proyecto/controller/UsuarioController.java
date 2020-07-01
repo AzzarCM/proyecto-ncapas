@@ -50,6 +50,8 @@ public class UsuarioController {
         }
         mav.addObject("titulo", "Registro de usuario");
         mav.addObject("ruta", "insertarUsuario");
+        mav.addObject("url", "login");
+        mav.addObject("btn", "Iniciar sesion");
         mav.setViewName("nuevoUsuario");
         return mav;
     }
@@ -70,15 +72,30 @@ public class UsuarioController {
     @RequestMapping("/insertarUsuario")
     public ModelAndView insertUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result){
         ModelAndView mav = new ModelAndView();
-
+        List<Usuario> usuarios;
+        List<Departamento> departamentos;
+        List<Rol> roles;
         if(result.hasErrors()){
             mav.setViewName("nuevoUsuario");
         }else{
             try{
+                usuarios = usuarioService.findAll();
+                departamentos = departamentoService.findAll();
+                roles = rolService.findAll();
+                for(Usuario u : usuarios){
+                    if(u.getNombre_usuario().equals(usuario.getNombre_usuario())){
+                        mav.addObject("titulo", "Registro de usuario");
+                        mav.addObject("ruta", "insertarUsuario");
+                        mav.addObject("departamento", departamentos);
+                        mav.addObject("rol", roles);
+                        mav.addObject("error", true);
+                        mav.setViewName("nuevoUsuario");
+                        return mav;
+                    }
+                }
                 usuario.setEstado(false);
                 usuario.setEdad(CalcularEdad(usuario.getFechaNacimiento()));
                 usuarioService.save(usuario);
-                System.out.println("ENTRE KEKW");
                 mav.setViewName("iniciarSesion");
             }catch (Exception e){
                 e.printStackTrace();
@@ -97,7 +114,6 @@ public class UsuarioController {
         for (GrantedAuthority authority : authentication.getAuthorities()) {
             rol = authority.getAuthority();
         }
-        System.out.println("ROL: "+rol);
         if(authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")){
             mav.addObject("rol", rol);
         }
@@ -115,7 +131,6 @@ public class UsuarioController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mav.addObject("usuarios", usuarios);
         mav.setViewName("CatalogoUsuarios");
         return mav;
@@ -147,15 +162,38 @@ public class UsuarioController {
     }
 
     @RequestMapping("/saveUsuario")
-    public ModelAndView actualizar(@ModelAttribute Usuario usuario){
+    public ModelAndView actualizar(@Valid @ModelAttribute Usuario usuario, BindingResult result){
         ModelAndView mav = new ModelAndView();
-        try{
-            usuario.setEdad(CalcularEdad(usuario.getFechaNacimiento()));
-            usuarioService.save(usuario);
-        }catch (Exception e){
-            e.printStackTrace();
+        List<Usuario> usuarios;
+        List<Departamento> departamentos;
+        List<Rol> roles;
+        if(result.hasErrors()){
+            mav.setViewName("nuevoUsuario");
+        }else{
+            try{
+                usuarios = usuarioService.findAll();
+                departamentos = departamentoService.findAll();
+                roles = rolService.findAll();
+                for(Usuario u : usuarios){
+                    if(u.getNombre_usuario().equals(usuario.getNombre_usuario()) && usuario.getIdUsuario() == null){
+                        mav.addObject("titulo", "Registro de usuario");
+                        mav.addObject("ruta", "insertarUsuario");
+                        mav.addObject("departamento", departamentos);
+                        mav.addObject("rol", roles);
+                        mav.addObject("error", true);
+                        mav.addObject("url", "usuarios");
+                        mav.addObject("btn", "Regresar");
+                        mav.setViewName("nuevoUsuario");
+                        return mav;
+                    }
+                }
+                usuario.setEdad(CalcularEdad(usuario.getFechaNacimiento()));
+                usuarioService.save(usuario);
+                mav.setViewName("redirect:/usuarios");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
-        mav.setViewName("redirect:/usuarios");
         return mav;
     }
 
@@ -176,6 +214,9 @@ public class UsuarioController {
         }
         mav.addObject("titulo", "Crear usuario");
         mav.addObject("ruta", "saveUsuario");
+        mav.addObject("edit", true);
+        mav.addObject("url", "usuarios");
+        mav.addObject("btn", "Regresar");
         mav.setViewName("nuevoUsuario");
         return mav;
     }
