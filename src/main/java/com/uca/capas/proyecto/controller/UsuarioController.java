@@ -1,6 +1,5 @@
 package com.uca.capas.proyecto.controller;
 
-
 import com.uca.capas.proyecto.domain.Departamento;
 import com.uca.capas.proyecto.domain.Rol;
 import com.uca.capas.proyecto.domain.Usuario;
@@ -12,10 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -49,6 +48,8 @@ public class UsuarioController {
         }catch (Exception e){
             e.printStackTrace();
         }
+        mav.addObject("titulo", "Registro de usuario");
+        mav.addObject("ruta", "insertarUsuario");
         mav.setViewName("nuevoUsuario");
         return mav;
     }
@@ -74,7 +75,6 @@ public class UsuarioController {
             mav.setViewName("nuevoUsuario");
         }else{
             try{
-
                 usuario.setEstado(false);
                 usuario.setEdad(CalcularEdad(usuario.getFechaNacimiento()));
                 usuarioService.save(usuario);
@@ -104,6 +104,82 @@ public class UsuarioController {
 
         return mav;
     }
+
+    @RequestMapping("/usuarios")
+    public ModelAndView usuarios() {
+        ModelAndView mav = new ModelAndView();
+        List<Usuario> usuarios = null;
+
+        try {
+            usuarios = usuarioService.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mav.addObject("usuarios", usuarios);
+        mav.setViewName("CatalogoUsuarios");
+        return mav;
+    }
+
+    @RequestMapping("/usuario")
+    public ModelAndView updateMateria(@RequestParam("id") Integer id) {
+        ModelAndView mav = new ModelAndView();
+        Usuario usuario = new Usuario();
+        List<Rol> roles;
+        List<Departamento> departamentos;
+        try {
+            roles = rolService.findAll();
+            usuario = usuarioService.findOne(id);
+            departamentos = departamentoService.findAll();
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mav.addObject("usuario", usuario);
+        mav.setViewName("updateUsuario");
+        return mav;
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView cerrarSesion(){
+        return new ModelAndView("redirect:/login?logout");
+    }
+
+    @RequestMapping("/saveUsuario")
+    public ModelAndView actualizar(@ModelAttribute Usuario usuario){
+        ModelAndView mav = new ModelAndView();
+        try{
+            usuario.setEdad(CalcularEdad(usuario.getFechaNacimiento()));
+            usuarioService.save(usuario);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        mav.setViewName("redirect:/usuarios");
+        return mav;
+    }
+
+    @RequestMapping("/crearUsuario")
+    public ModelAndView crear(){
+        ModelAndView mav = new ModelAndView();
+        Usuario usuario = new Usuario();
+        List<Departamento> departamentos;
+        List<Rol> roles;
+        mav.addObject("usuario", usuario);
+        try {
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        mav.addObject("titulo", "Crear usuario");
+        mav.addObject("ruta", "saveUsuario");
+        mav.setViewName("nuevoUsuario");
+        return mav;
+    }
+
 
     public Integer CalcularEdad(Date fechaNacimiento){
         Date d2 = new Date();

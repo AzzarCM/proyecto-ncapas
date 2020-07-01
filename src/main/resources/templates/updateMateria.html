@@ -3,16 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Actualizar materia</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1> Editar materia</h1>
-    <form method="post" th:action="@{/saveMateria}" th:object="${materia}">
-        <input th:field="*{id_catmateria}" hidden><br>
-        <label>Codigo: <span th:text="*{id_catmateria}"></span></label><br>
-        <label>Descripcion: <input type="text" id="descripcion" th:field="*{nombre}" ></label><br>
-        <label>Estado: </label>
-        <input type="checkbox" class="" th:field="*{estado}" th:value = "${true}"><br>
-        <input type="submit" value="Actualizar">
-    </form>
+<div class="container col-md-6">
+    <br>
+    <div class="jumbotron">
+        <h1>Editar materia</h1>
+        <form method="post" th:action="@{/saveMateria}" th:object="${materia}">
+            <input th:field="*{id_catmateria}" hidden><br>
+            <div class="form-group">
+                <label class="col-form-label">Codigo: <span  th:text="*{id_catmateria}"></span></label><br>
+
+                <label class="col-form-label">Descripcion: </label>
+                <input type="text" class="form-control"  placeholder="Ingrese el nombre" th:field="*{nombre}">
+                <span th:errors="*{nombre}" style="color:#E81505"></span>
+
+                <div class="form-group">
+                    <label class="col-form-label">Estado</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${true}">
+                        <label class="custom-control-label" for="customRadio1">Activo</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${false}">
+                        <label class="custom-control-label" for="customRadio2">Inactivo</label>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group mr-4" role="group" aria-label="Third group">
+                <input type="submit" class="btn btn-primary" value="Actualizar"/>
+            </div>
+            <div class="btn-group" role="group" aria-label="Third group">
+                <a class="btn btn-warning" href="/materias">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

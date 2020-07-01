@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalogo Centro Escolares</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Listado de Centros Escolares</h1>
-<a href="/crearCE">Nuevo Centro Escolar</a>
-<table>
-    <thead>
-    <tr>
-        <th>Accion</th>
-        <th>Codigo</th>
-        <th>Descripcion</th>
-        <th>Estado</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="e : ${escolares}">
-        <td><a th:href="@{'/escuela?id=' + ${e.idCentroEscolar}}">Editar</a></td>
-        <td th:text="${e.idCentroEscolar}"></td>
-        <td th:text="${e.nombre}"></td>
-        <td th:text="${e.estadoDelegate}"></td>
-    </tr>
-    </tbody>
-</table><br>
+<div class="container mt-5">
+    <h1>Listado de Centro Escolares</h1>
+    <br>
+    <a class="btn btn-info mb-4" href="/crearCE"><i class="fa fa-plus mr-1"> </i> Nuevo Centro Escolar</a>
+    <br>
+    <section>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-dark">
+                <th class="text-center">Accion</th>
+                <th class="text-center">Codigo</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Estado</th>
+            </tr>
+            </thead>
+            <th:block th:each="e : ${escolares}">
+                <tr>
+                    <th class="text-center"><a th:href="@{'/escuela?id=' + ${e.idCentroEscolar}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                    <th th:text="${e.idCentroEscolar}" class="text-center"></th>
+                    <th th:text="${e.nombre}" class="text-center"></th>
+                    <th th:text="${e.estadoDelegate}" class="text-center"></th>
+                </tr>
+            </th:block>
+        </table>
+    </section>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-warning mt-4 ml-4" href="/index">Regresar</a>
+    </div>
+</div>
 </body>
 </html>

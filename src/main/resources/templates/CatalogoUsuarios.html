@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Usuarios</title>
+</head>
+<body>
+<h1>Listado de Usuarios</h1>
+<a href="/crearCE">Nuevo Usuario</a>
+<table>
+    <thead>
+    <tr>
+        <th>Accion</th>
+        <th>Codigo</th>
+        <th>Descripcion</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="u : ${usuarios}">
+        <td><a th:href="@{'/usuario?id=' + ${u.idUsuario}}">Editar</a></td>
+        <td th:text="${u.idUsuario}"></td>
+        <td th:text="${u.nombre_usuario}"></td>
+        <td th:text="${u.estadoDelegate}"></td>
+    </tr>
+    </tbody>
+</table><br>
+</body>
+</html>

@@ -37,8 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     for (GrantedAuthority authority : auth.getAuthorities()) {
                         System.out.println(authority.getAuthority());
                     }
-
-
                     res.sendRedirect("/index"); // Redirect user to index/home page
                 })
                 .failureHandler((req,res,exp)->{  // Failure handler invoked after authentication failure
@@ -53,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 //.failureUrl("/login?error")
                 .and()
-                .logout().logoutSuccessUrl("/login?logout")
+                .logout()
+                .logoutSuccessUrl("/login?logout")
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)

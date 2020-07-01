@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.uca.capas.proyecto.domain.Catalogo_materias;
@@ -19,7 +20,7 @@ public class CatMateriaServiceImpl implements CatMateriaService {
 
 	@Override
 	public List<Catalogo_materias> findAllCatMat() throws DataAccessException {
-		return catMateriaRepo.findAll();
+		return catMateriaRepo.findAll(Sort.by(Sort.Direction.ASC, "idCatmateria"));
 	}
 
 	@Override
@@ -29,9 +30,6 @@ public class CatMateriaServiceImpl implements CatMateriaService {
 
 	@Override
 	public void save(Catalogo_materias Catmateria) throws DataAccessException {
-		System.out.println("ID: " + Catmateria.getId_catmateria());
-		System.out.println("NOMBRE: " + Catmateria.getNombre());
-		System.out.println("ESTADO: " + Catmateria.getEstadoDelegate());
 		catMateriaRepo.save(Catmateria);
 	}
 }
