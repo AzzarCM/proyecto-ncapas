@@ -1,6 +1,7 @@
 package com.uca.capas.proyecto.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,8 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.sql.DataSource;
 
@@ -55,18 +59,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         System.out.println("Invalid username or password.");
                         res.sendRedirect("/login?error");
                     }else{
-                        res.sendRedirect("/login?actividad");
+                       if(exp.getMessage().equals("Maximum sessions of 1 for this principal exceeded")){
+                           res.sendRedirect("/login?max");
+                       }else{
+                           res.sendRedirect("/login?actividad");
+                       }
                     }
                      // Redirect user to login page with error message.
                 })
                 //.failureUrl("/login?error")
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .sessionManagement()
+                .invalidSessionUrl("/login?session")
                 .maximumSessions(1)
-                .maxSessionsPreventsLogin(true);
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
     }
 
     @Bean
@@ -74,6 +87,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(4);
     }
 
+    // Work around https://jira.spring.io/browse/SEC-2855
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    // Register HttpSessionEventPublisher
+    @Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -17,11 +17,15 @@
             </div>
 
             <div th:if="${param.logout}" class="alert alert-dismissible alert-danger mt-5 text-center">
-                <strong>Se ha cerrado sesion.</strong>
+                <strong>Se ha cerrado sesión.</strong>
             </div>
 
             <div th:if="${param.actividad}" class="alert alert-dismissible alert-danger mt-5 text-center">
                 <strong>Tu cuenta se encuentra inactiva </strong><i class="fa fa-frown-o ml-2"></i>
+            </div>
+
+            <div th:if="${param.max}" class="alert alert-dismissible alert-danger mt-5 text-center">
+                <strong> No se permite el doble inicio de sesión </strong><i class="fa fa-frown-o ml-2"></i>
             </div>
 
             <div class="card card-signin my-5">

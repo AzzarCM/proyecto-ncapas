@@ -20,8 +20,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     @Transactional
     public void save(Usuario usuario) throws DataAccessException {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
-        usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+        if (usuario.getContrasenia().length() != 60) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+        }
         usuarioRepo.save(usuario);
     }
 
