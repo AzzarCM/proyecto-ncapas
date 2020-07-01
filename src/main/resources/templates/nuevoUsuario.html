@@ -10,7 +10,7 @@
 <div class="container col-md-6">
     <br>
     <div class="jumbotron">
-        <h1>Nuevo usuario</h1>
+        <h1 th:text="${titulo}"></h1>
         <form method="post" th:action="@{/${ruta}}" th:object="${usuario}">
             <div class="form-group">
                 <label class="col-form-label">Nombre</label>
@@ -99,26 +99,5 @@
 </div>
 
 </body>
-<script>
-    $("select#departamentoSelect").change(function() {
-        let departamentoValue = $("#departamentoSelect").val();
-        $.ajax({
-            url: '/municipios?id=' + departamentoValue,
-            method: 'GET',
-        }).done(
-            function (municipios) {
-                console.log(municipios)
-                let stateSelect = $('#municipioSelect');
-                stateSelect.find('option').remove();
-                stateSelect.append("<option value=0 > - Seleccione un municipio - </option>")
-                for (let i = 0; i < municipios.length; i++) {
-                    stateSelect.append("<option value=" + municipios[i].idMunicipio + " >" + municipios[i].nombre + "</option>")
-                }
-            }).fail(
-            function() {
-                alert('error inesperado');
-            }
-        )
-    })
-</script>
+<script src="js/selectores.js"></script>
 </html>

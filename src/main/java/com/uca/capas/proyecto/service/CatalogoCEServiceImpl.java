@@ -4,6 +4,7 @@ import com.uca.capas.proyecto.domain.CatalogoCE;
 import com.uca.capas.proyecto.repositories.CatalogoCERepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class CatalogoCEServiceImpl implements CatalogoCEService {
 
     @Override
     public List<CatalogoCE> allCentrosEscolares() throws DataAccessException {
-        return catalogoCE.allCentrosEscolares();
+        return catalogoCE.findAll(Sort.by(Sort.Direction.ASC, "idCentroEscolar"));
     }
 
     @Override
