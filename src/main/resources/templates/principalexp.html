@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Bienvenido a la pantalla principal de los expedientes</h1>
+
+<form method="post" th:action="@{/mainExpediente}">
+    <label>Buscar alumno por: </label>
+    <select>
+        <option name="id1" value="1" ><th th:text="Nombre"></th></option>
+        <option name="id2" value="2" ><th th:text="Apellido"></th></option>
+    </select><br>
+    <label>Valor de busqueda: </label><input type="text" name="valor"><input type="submit" value="buscar">
+</form>
+<h1>Listado de Alumnos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="m : ${expedientes}">
+        <td th:text="${m.nombres}"></td>
+        <td th:text="${m.apellidos}"></td>
+    </tr>
+    </tbody>
+</table><br>
+
+</body>
+</html>

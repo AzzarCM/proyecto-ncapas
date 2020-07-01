@@ -50,17 +50,11 @@ public class Materia {
 	@Column(name="id_estudiante")
 	private Integer id_estudiante;
 	
-	
 	@Column(name="resultado")
 	private String resultado;
-	
 
 	public Materia() {
 	}
-	
-	
-
-	
 	public Integer getId_estudiante() {
 		return id_estudiante;
 	}

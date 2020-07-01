@@ -2,7 +2,9 @@ package com.uca.capas.proyecto.domain;
 
 
 import javax.persistence.*;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -16,52 +18,97 @@ public class Expediente {
     private Integer idEstudiante;
 
     @Size(message = "El campo no debe contener mas de 250 caracteres", max = 250)
-    //@NotEmpty(message = "El campo nombres no debe estar vacio")
+    @NotEmpty(message = "El campo nombres no debe estar vacio")
     @Column(name = "nombres")
     private String nombres;
 
-    //@NotEmpty(message = "El campo apellidos no debe estar vacio")
+    @NotEmpty(message = "El campo apellidos no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 250 caracteres", max = 250)
     @Column(name = "apellidos")
     private String apellidos;
 
-    //@NotEmpty(message = "El campo carnet de minoridad no debe estar vacio")
+    @NotEmpty(message = "El campo carnet de minoridad no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "carne_min")
     private String carneMin;
 
-    //@NotEmpty(message = "El campo de la fecha no debe estar vacio")
+    @NotNull(message = "El campo de la fecha no debe estar vacio")
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    //@NotEmpty(message = "El campo edad no debe estar vacio")
+    @NotNull(message = "El campo edad no debe estar vacio")
     @Column(name = "edad")
     private Integer edad;
 
-    //@NotEmpty(message = "El campo direccion no debe estar vacio")
+    @NotEmpty(message = "El campo direccion no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 200 caracteres", max = 200)
     @Column(name = "direccion")
     private String direccion;
 
-    //@NotEmpty(message = "El campo del telefono fijo no debe estar vacio")
+    @NotEmpty(message = "El campo del telefono fijo no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "tel_fijo")
     private String telFijo;
 
-    //@NotEmpty(message = "El campo del telefono movil no debe estar vacio")
+    @NotEmpty(message = "El campo del telefono movil no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "tel_movil")
     private String telMovil;
 
-   //@NotEmpty(message = "El campo del nombre del padre no debe estar vacio")
+   @NotEmpty(message = "El campo del nombre del padre no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 100 caracteres", max = 100)
     @Column(name = "nombre_padre")
     private String nombrePadre;
 
-    //@NotEmpty(message = "El campo del nombre de la madre no debe estar vacio")
+    @NotEmpty(message = "El campo del nombre de la madre no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 100 caracteres", max = 100)
     @Column(name = "nombre_madre")
     private String nombreMadre;
+
+    @Column(name = "institucion")
+    private String institucion;
+
+    public Float promedio;
+
+    public Integer aprovadas;
+
+    public Integer reprovadas;
+/*
+    @OneToMany(mappedBy="expediente",fetch= FetchType.EAGER)
+    private List<Materia> materias;
+
+    public List<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
+    }
+*/
+
+    public Float getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(Float promedio) {
+        this.promedio = promedio;
+    }
+
+    public Integer getAprovadas() {
+        return aprovadas;
+    }
+
+    public void setAprovadas(Integer aprovadas) {
+        this.aprovadas = aprovadas;
+    }
+
+    public Integer getReprovadas() {
+        return reprovadas;
+    }
+
+    public void setReprovadas(Integer reprovadas) {
+        this.reprovadas = reprovadas;
+    }
 
     public Integer getIdEstudiante() {
         return idEstudiante;
@@ -151,11 +198,6 @@ public class Expediente {
         this.nombreMadre = nombreMadre;
     }
 
-
-    //@NotEmpty(message = "el campo institucion no puede quedar vacio")
-    @Column(name = "institucion")
-    private String institucion;
-
     public String getInstitucion() {
         return institucion;
     }
@@ -165,14 +207,6 @@ public class Expediente {
     }
 
     public Expediente(){}
-/*
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="id_municipio")
-    private Municipio idMunicipio;
-*/
-
-    //@OneToMany(mappedBy="expediente",fetch= FetchType.EAGER)
-    //private List<Municipio> municipio;
 
     //@OneToMany(mappedBy="expediente",fetch= FetchType.EAGER)
     //private List<Materia> materias;
