@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,56 +46,50 @@ public class MateriaController {
 
 	
 
-	@RequestMapping("/insertmatEst")
-	public ModelAndView insertMat() {
+	@GetMapping("/insertMatEst")
+	public ModelAndView insertMatEst() {
 		ModelAndView mav = new ModelAndView();
 		List<Catalogo_materias> catMaterias = null;
-
+		
 		try {
 			catMaterias = catMateriaService.findAllCatMat();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Materia materia = new Materia();
 		
-		mav.addObject("materia", materia);
+		mav.addObject("materia", new Materia());
 		mav.addObject("catMaterias", catMaterias);
 		mav.setViewName("InsertMat");
 		return mav;
 	}
 	
 	
-	@PostMapping("/guardarMat")
-	public ModelAndView guardarCont(@Valid @ModelAttribute Materia c, BindingResult result) {
-		
+	@PostMapping("/saveMat")
+	public ModelAndView guardarMat(@Valid @ModelAttribute Materia materia, BindingResult result ) {
+		List<Catalogo_materias> catMaterias = null;
+
 		ModelAndView mav = new ModelAndView();
-
-		if(result.hasErrors()) {
-			List<Catalogo_materias> catMaterias = null;
-
-			try {
-				catMaterias = catMateriaService.findAllCatMat();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		
+		if(result.hasErrors()) {
+			catMaterias = catMateriaService.findAllCatMat();
 			mav.addObject("catMaterias", catMaterias);
 			mav.setViewName("InsertMat");
-		} 
-		else {
-			
-			if(c.getNota()>=6) {
-				c.setResultado("APROBADO");
-			} else {
-				c.setResultado("REPROBADO");
 
+		} else {		    
+			
+
+			if(materia.getNota()>=6) {
+				materia.setResultado("APROBADO");
+			} else {
+				materia.setResultado("REPROBADO");
 			}
 			
-			c.setId_estudiante(2);
+			materia.setId_estudiante(2);
 			
-			List<Materia> materias = null;
+			materiaService.save(materia);
+			
 
-			materiaService.save(c);
+			List<Materia> materias = null;
 			
 			try {
 				materias = materiaService.findAllMateriasEst(2);
@@ -104,10 +99,10 @@ public class MateriaController {
 
 			mav.addObject("materias", materias);
 			mav.setViewName("Materia");
-
 		}
 		
 		return mav;
-		
 	}
+	
+	
 }

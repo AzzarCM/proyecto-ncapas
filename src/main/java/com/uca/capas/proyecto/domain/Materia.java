@@ -11,8 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 @Entity
@@ -29,24 +30,25 @@ public class Materia {
 	 @JoinColumn(name="id_catmateria")
 	 private Catalogo_materias id_catmateria;
 	
-
-	//@NotNull(message="No puede estar vacio")
-	//@Size(message="Año desde el 2005 hasta la fecha", max=2020, min=2005)
+	@NotNull(message="No puede estar vacio")
+	@Min(value=2005, message="No puede ingresar un año antes del 2005")  
+    @Max(value=2020, message="No puede ingresar un año después del 2020")  
 	@Column(name="anio")
 	private Integer anio;
 	
 	//Combobox 01,02,03
-	//@NotNull(message="No puede estar vacio")
+	@NotNull(message="No puede estar vacio")
 	@Column(name="ciclo")
 	private Integer ciclo;
 	
-	//@NotNull(message="No puede estar vacio")
-	//@Size(message="Nota desde 0 hasta 10", max=10, min=0)
+	@NotNull(message="No puede estar vacio")
+	@Min(value=0, message="La nota no puede ser menor a 0")  
+    @Max(value=10, message="La nota no puede ser mayor a 10")  
 	@Column(name="nota")
 	private Float nota;
 	
 	
-	//@NotNull(message="No puede estar vacio")
+	@NotNull(message="No puede estar vacio")
 	@Column(name="id_estudiante")
 	private Integer id_estudiante;
 	
@@ -115,7 +117,6 @@ public class Materia {
 	public Catalogo_materias getId_catmateria() {
 		return id_catmateria;
 	}
-
 
 
 
