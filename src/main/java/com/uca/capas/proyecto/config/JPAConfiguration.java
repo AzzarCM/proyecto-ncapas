@@ -42,7 +42,7 @@ public class JPAConfiguration {
 
         dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/finalCapas");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("ncapas");
+        dataSource.setPassword("camote99");
 
         return dataSource;
     }
@@ -53,11 +53,7 @@ public class JPAConfiguration {
 		properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
     }
-    
-    @Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="id_materia")
-	private Integer id_materia;
+
     
     
     @Bean

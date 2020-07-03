@@ -7,6 +7,7 @@ import com.uca.capas.proyecto.service.ExpedienteService;
 import com.uca.capas.proyecto.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,25 +60,31 @@ public class ExpedienteController {
         return mav;
     }
 
-    @RequestMapping("/mainExpediente")
-    public ModelAndView loadMain(@RequestParam(value ="id1") String id1, @RequestParam(value = "id2")String id2, @RequestParam(value = "valor")String valor){
+    @RequestMapping("/search")
+    public ModelAndView search(@RequestParam(value = "valor")String valor){//, @RequestParam(value = "id")Integer id
         ModelAndView mav = new ModelAndView();
         List<Expediente> expedientes = null;
-        if(id1.equals("1")){
+        expedientes = expedienteService.buscarPorNombre(valor);/*
+
+        if(id.equals("1")){
             try{
                 expedienteService.buscarPorNombre(valor);
             }catch (Exception e){
                 e.printStackTrace();;
             }
-        }
-        if(id2.equals("2")){
-            try{
-                expedienteService.buscarPorApellido(valor);
-            }catch (Exception e){
-                e.printStackTrace();;
-            }
+        }*/
+        for(Expediente m : expedientes){
+            m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+            m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
+            m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
         }
         mav.addObject("expedientes", expedientes);
+        mav.setViewName("principalexp");
+        return mav;
+    }
+    @RequestMapping("/mainExpediente")
+    public ModelAndView loadMain(){
+        ModelAndView mav = new ModelAndView();
         mav.setViewName("principalexp");
         return mav;
     }
