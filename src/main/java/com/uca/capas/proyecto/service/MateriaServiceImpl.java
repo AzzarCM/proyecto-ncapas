@@ -29,6 +29,21 @@ public class MateriaServiceImpl implements MateriaService {
 	}
 
 	@Override
+	public Float promedioNotas(Integer code) throws DataAccessException {
+		return materiaRepo.promedioNotas(code);
+	}
+
+	@Override
+	public Integer materiaAprovada(Integer code) throws DataAccessException {
+		return materiaRepo.materiaAprovada(code);
+	}
+
+	@Override
+	public Integer materiaReprovada(Integer code) throws DataAccessException {
+		return materiaRepo.materiaReprovada(code);
+	}
+
+	@Override
 	public Materia findOne(Integer code) throws DataAccessException {
 		return materiaRepo.getOne(code);
 	}

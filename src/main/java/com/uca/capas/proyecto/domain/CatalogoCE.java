@@ -14,11 +14,14 @@ public class CatalogoCE {
     private String nombre;
 
     @Column(name = "estado")
-    private String estado;
+    private Boolean estado;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_municipio")
     private Municipio municipio;
+
+    public CatalogoCE() {
+    }
 
     public Integer getIdCentroEscolar() {
         return idCentroEscolar;
@@ -36,11 +39,11 @@ public class CatalogoCE {
         this.nombre = nombre;
     }
 
-    public String getEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Boolean estado) {
         this.estado = estado;
     }
 
@@ -51,4 +54,11 @@ public class CatalogoCE {
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
     }
+
+    public String getEstadoDelegate() {
+        if (this.estado == null) return "";
+        else
+            return estado ? "Activo" : "Inactivo";
+    }
+
 }

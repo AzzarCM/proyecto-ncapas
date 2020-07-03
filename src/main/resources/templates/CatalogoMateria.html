@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Materias</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Listado de Materias</h1>
+        <br>
+        <a class="btn btn-info mb-4" href="/crearMateria"><i class="fa fa-plus mr-1"> </i> Nueva Materia</a>
+        <br>
+        <section>
+            <table class="table table-hover">
+                <thead>
+                <tr class="table-dark">
+                    <th class="text-center">Accion</th>
+                    <th class="text-center">Codigo</th>
+                    <th class="text-center">Descripcion</th>
+                    <th class="text-center">Estado</th>
+                </tr>
+                </thead>
+                <th:block th:each="m : ${materias}">
+                    <tr>
+                        <th class="text-center"><a th:href="@{'/materia?id=' + ${m.id_catmateria}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                        <th th:text="${m.id_catmateria}" class="text-center"></th>
+                        <th th:text="${m.nombre}" class="text-center"></th>
+                        <th th:text="${m.estadoDelegate}" class="text-center"></th>
+                    </tr>
+                </th:block>
+            </table>
+        </section>
+        <div class="btn-group" role="group" aria-label="Third group">
+            <a class="btn btn-warning mt-4 ml-4" href="/index">Regresar</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/personalizado.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Catalogo</h5>
+                        <div th:if="${rol == 'Administrador'}">
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/materias"> Materias </a>
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/escolares"> Centros escolares </a>
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/usuarios"> Usuarios </a>
+                        </div>
+                        <div th:if="${rol == 'Coordinador'}">
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="#"> Expediente </a>
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="#"> Materias cursadas </a>
+                        </div>
+                        <hr class="my-4">
+                        <form name="logoutForm" th:action="@{/logout}" method="post">
+                            <input type="submit" class="btn btn-lg btn-google btn-block text-uppercase" value="Cerrar Sesión">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

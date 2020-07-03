@@ -17,4 +17,10 @@ public interface MateriaService {
 	void delete(Integer codigoMateria) throws DataAccessException;
 
 	List<Materia> findAllMateriasEst(Integer code) throws DataAccessException;
+
+	public Float promedioNotas(Integer code) throws DataAccessException;
+
+	public Integer materiaAprovada(Integer code) throws DataAccessException;
+
+	public Integer materiaReprovada(Integer code) throws DataAccessException;
 }

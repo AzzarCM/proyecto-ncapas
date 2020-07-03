@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar usuario</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container col-md-6">
+    <br>
+    <div class="jumbotron">
+        <h1>Editar usuario</h1>
+        <form method="post" th:action="@{/saveUsuario}" th:object="${usuario}">
+            <input th:field="*{idUsuario}" hidden="true">
+            <div class="form-group">
+                <label class="col-form-label">Codigo: <span  th:text="*{idUsuario}"></span></label><br>
+                <label class="col-form-label">Nombre</label>
+                <input type="text" class="form-control"  placeholder="Ingrese el nombre" th:field="*{nombre}">
+                <span th:errors="*{nombre}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Apellido</label>
+                <input type="text" class="form-control" placeholder="Ingrese el apellido" th:field="*{apellido}">
+                <span th:errors = "*{apellido}" style= "color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Fecha de nacimiento</label>
+                <input type="text" class="form-control" id="fechaNacimiento" placeholder="Ingrese la fecha" th:field="*{fechaNacimiento}">
+                <span th:errors = "*{fechaNacimiento}" style= "color:#E81505"></span>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#fechaNacimiento').datepicker({
+                            format: 'dd/mm/yyyy'
+                        });
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Departamento</label>
+                <th>
+                    <select id="departamentoSelect" class="custom-select">
+                        <option th:each="d: ${departamento}" th:value="${d.idDepartamento}" th:text="${d.nombre}"
+                                th:selected="${d.idDepartamento} == *{municipio.departamento.idDepartamento}">
+                        </option>
+                    </select>
+                </th>
+
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Municipio</label>
+                <th>
+                    <select class="custom-select" id="municipioSelect" th:field="*{municipio.idMunicipio}">
+                        <option th:text="*{municipio.nombre}" th:value="*{municipio.idMunicipio}"></option>
+                    </select>
+                </th>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label">Direccion</label>
+                <input type="text" class="form-control" placeholder="Ingrese la direccion" th:field="*{direccion}">
+                <span th:errors = "*{direccion}" style= "color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" placeholder="Ingrese el nombre de usuario" th:field="*{nombre_usuario}">
+                <span th:errors = "*{nombre_usuario}" style= "color:#E81505"></span>
+            </div>
+            <div class="form-group" hidden="true">
+                <label class="col-form-label">Contraseña</label>
+                <input type="text" class="form-control" placeholder="Ingrese la contraseña" th:field="*{contrasenia}">
+                <span th:errors = "*{contrasenia}" style= "color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Rol</label>
+                <th>
+                    <select class="custom-select" th:field="*{rol.idRol}">
+                        <option th:each="r: ${rol}" th:value="${r.idRol}" th:text="${r.nombre}">
+                        </option>
+                    </select>
+                </th>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Estado</label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${true}">
+                    <label class="custom-control-label" for="customRadio1">Activo</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${false}">
+                    <label class="custom-control-label" for="customRadio2">Inactivo</label>
+                </div>
+            </div>
+            <div class="btn-toolbar mt-5" role="toolbar">
+                <div class="btn-group mr-5" role="group" aria-label="Second group">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Actualizar"/>
+                </div>
+                <div class="btn-group mr-5" role="group" aria-label="Third group">
+                    <a class="btn btn-warning btn-lg" th:href="@{/usuarios}">Regresar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="js/selectores.js"></script>
+</html>
