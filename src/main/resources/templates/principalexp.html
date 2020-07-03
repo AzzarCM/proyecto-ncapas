@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <h1>Bienvenido a la pantalla principal de los expedientes</h1>
 
-<form method="post" th:action="@{/mainExpediente}">
+<form method="post" th:action="@{/search}">
     <label>Buscar alumno por: </label>
-    <select>
-        <option name="id1" value="1" ><th th:text="Nombre"></th></option>
+    <select id="jobSel">
+        <option name="id" value="1" ><th th:text="Nombre"></th></option>
         <option name="id2" value="2" ><th th:text="Apellido"></th></option>
     </select><br>
     <label>Valor de busqueda: </label><input type="text" name="valor"><input type="submit" value="buscar">
@@ -21,15 +22,20 @@
     <tr>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Aprovadas</th>
+        <th>Reprovadas</th>
+        <th>Promedio</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="m : ${expedientes}">
         <td th:text="${m.nombres}"></td>
         <td th:text="${m.apellidos}"></td>
+        <td th:text="${m.aprovadas}"></td>
+        <td th:text="${m.reprovadas}"></td>
+        <td th:text="${m.promedio}"></td>
     </tr>
     </tbody>
 </table><br>
-
 </body>
 </html>

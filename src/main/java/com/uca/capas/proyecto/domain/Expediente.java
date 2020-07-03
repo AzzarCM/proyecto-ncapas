@@ -68,10 +68,11 @@ public class Expediente {
     @Column(name = "institucion")
     private String institucion;
 
+    @Transient
     public Float promedio;
-
+    @Transient
     public Integer aprovadas;
-
+    @Transient
     public Integer reprovadas;
 /*
     @OneToMany(mappedBy="expediente",fetch= FetchType.EAGER)
