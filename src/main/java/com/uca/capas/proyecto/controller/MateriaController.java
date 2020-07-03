@@ -46,11 +46,11 @@ public class MateriaController {
 
 	
 
-	@GetMapping("/insertMatEst")
+	@GetMapping("/insertmatEst")
 	public ModelAndView insertMatEst() {
 		ModelAndView mav = new ModelAndView();
 		List<Catalogo_materias> catMaterias = null;
-		
+
 		try {
 			catMaterias = catMateriaService.findAllCatMat();
 		} catch (Exception e) {
@@ -67,16 +67,16 @@ public class MateriaController {
 	@PostMapping("/saveMat")
 	public ModelAndView guardarMat(@Valid @ModelAttribute Materia materia, BindingResult result ) {
 		List<Catalogo_materias> catMaterias = null;
-
 		ModelAndView mav = new ModelAndView();
 		
 		if(result.hasErrors()) {
+			System.out.println(result.toString());
 			catMaterias = catMateriaService.findAllCatMat();
 			mav.addObject("catMaterias", catMaterias);
 			mav.setViewName("InsertMat");
 
-		} else {		    
-			
+		} else {
+			System.out.println("entre al else");
 
 			if(materia.getNota()>=6) {
 				materia.setResultado("APROBADO");

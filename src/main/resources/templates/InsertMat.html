@@ -11,7 +11,7 @@
 		
 			
 		<label>Catalogo de materias: </label>
-		<select th:field="*{id_catmateria}">
+		<select th:field="*{catalogo_materias.id_catmateria}">
 			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}"></th></option>
 		</select><br>
 		
