@@ -1,43 +1,60 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Catalogo Usuarios</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Bienvenido a la pantalla principal de los expedientes</h1>
-
-<form method="post" th:action="@{/search}">
-    <label>Buscar alumno por: </label>
-    <select id="jobSel">
-        <option name="id" value="1" ><th th:text="Nombre"></th></option>
-        <option name="id2" value="2" ><th th:text="Apellido"></th></option>
-    </select><br>
-    <label>Valor de busqueda: </label><input type="text" name="valor"><input type="submit" value="buscar">
-</form>
-<h1>Listado de Alumnos</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Accion</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Aprovadas</th>
-        <th>Reprovadas</th>
-        <th>Promedio</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="m : ${expedientes}">
-        <td><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}">materias</a></td>
-        <td th:text="${m.nombres}"></td>
-        <td th:text="${m.apellidos}"></td>
-        <td th:text="${m.aprovadas}"></td>
-        <td th:text="${m.reprovadas}"></td>
-        <td th:text="${m.promedio}"></td>
-    </tr>
-    </tbody>
-</table><br>
+<div class="container mt-5">
+    <h1>Expediente</h1>
+    <br>
+    <form method="post" th:action="@{/search}">
+        <div class="form-group">
+            <label class="col-form-label">Buscar por: </label>
+            <select class="custom-select" id="municipioSelect">
+                <option value="0">- Seleccione una opcion para filtrar -</option>
+                <option name="id" value="1" ><th th:text="Nombre"></th></option>
+                <option name="id2" value="2" ><th th:text="Apellido"></th></option>
+            </select> <br>
+            <label class="col-form-label">Valor de busqueda: </label>
+            <input type="text" class="form-control"  placeholder="Ingrese el valor a buscar" name="valor">
+            <div class="btn-group mr-4" aria-label="Third group">
+                <input type="submit" class="btn btn-primary" value="Buscar"/>
+            </div>
+        </div>
+    </form>
+    <br>
+    <h2>Listado de estudiates</h2>
+    <section>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-dark">
+                <th class="text-center">Accion</th>
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Aprobadas</th>
+                <th class="text-center">Reprobadas</th>
+                <th class="text-center">Promedio</th>
+            </tr>
+            </thead>
+            <th:block th:each="m : ${expedientes}">
+                <tr>
+                    <th class="text-center"><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                    <th th:text="${m.nombres}" class="text-center"></th>
+                    <th th:text="${m.apellidos}" class="text-center"></th>
+                    <th th:text="${m.aprovadas}" class="text-center"></th>
+                    <th th:text="${m.reprovadas}" class="text-center"></th>
+                    <th th:text="${m.promedio}" class="text-center"></th>
+                </tr>
+            </th:block>
+        </table>
+    </section>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-warning mt-4 ml-4" href="#">Regresar</a>
+    </div>
+</div>
 </body>
 </html>

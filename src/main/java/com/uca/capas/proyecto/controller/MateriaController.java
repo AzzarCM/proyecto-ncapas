@@ -2,7 +2,6 @@ package com.uca.capas.proyecto.controller;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ public class MateriaController {
 	public ModelAndView initMain(@RequestParam(value = "id")Integer id) {
 		ModelAndView mav = new ModelAndView();
 		List<Materia> materias = null;
-
 		idmat.setId_estudiante(id);
 		aux = idmat.getId_estudiante();
 		try {
