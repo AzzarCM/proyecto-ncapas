@@ -1,21 +1,15 @@
 package com.uca.capas.proyecto.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema="public", name="catalogo_materias")
 public class Catalogo_materias {
 
 	@Id
-	@GeneratedValue(generator="catalogo_materias_id_catmateria_seq", strategy = GenerationType.AUTO)
-	@SequenceGenerator(name = "catalogo_materias_id_catmateria_seq", sequenceName = "public.catalogo_materias_id_catmateria_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_catmateria")
 	private Integer idCatmateria;
 	
@@ -25,6 +19,8 @@ public class Catalogo_materias {
 	@Column(name="estado")
 	private Boolean estado;
 
+	@OneToMany(mappedBy = "catalogo_materias", fetch = FetchType.EAGER)
+	private List<Materia> materias;
 	
 	
 	public Catalogo_materias() {
@@ -74,23 +70,6 @@ public class Catalogo_materias {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

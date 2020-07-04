@@ -1,33 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Ver Materias</title>
+    <meta charset="UTF-8">
+    <title>Materias de Estudiante</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-	
-	<h1>Listado de Materias</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Año</th>
-				<th>Ciclo</th>
-				<th>Nota</th>
-				<th>Resultado</th>
+	<div class="container mt-5">
+	<h1>Listado de materias de Estudiante</h1>
+    <br>
+    <a class="btn btn-info mb-4" href="/insertmatEst"><i class="fa fa-plus mr-1"> </i> Nueva Materia de estudiante</a>
+    <br>
+    <section>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-dark">
+            
+				<th  class="text-center">Nombre</th>
+				<th class="text-center">Año</th>
+				<th class="text-center">Ciclo</th>
+				<th class="text-center">Nota</th>
+				<th class="text-center">Resultado</th>   
+				<th class="text-center">Accion</th>
+
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="m : ${materias}">
-				<td th:text="${m.id_catmateria.nombre}"></td>
-				<td th:text="${m.anio}"></td>
-				<td th:text="${m.ciclo}"></td>
-				<td th:text="${m.nota}"></td>
-				<td th:text="${m.resultado}"></td>
+				<td  class="text-center" th:text="${m.catalogo_materias.nombre}"></td>
+				<td  class="text-center" th:text="${m.anio}"></td>
+				<td  class="text-center" th:text="${m.ciclo}"></td>
+				<td  class="text-center" th:text="${m.nota}"></td>
+				<td  class="text-center" th:text="${m.resultado}"></td>
+				<td class="text-center"><a th:href="@{'/updatematEst?id=' + ${m.id_catmateria}}"><i class="fa fa-pencil-square-o"></i></a></td>
 			</tr>
 		</tbody>
 	</table><br>
 	
+	
+	 <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-warning mt-4 ml-4" href="/index">Regresar</a>
+    </div>
+</div>
 
 </body>
 </html></html>

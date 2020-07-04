@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.proyecto.domain.Catalogo_materias;
@@ -18,9 +19,12 @@ import com.uca.capas.proyecto.domain.Materia;
 import com.uca.capas.proyecto.service.CatMateriaService;
 import com.uca.capas.proyecto.service.MateriaService;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
 @Controller
 public class MateriaController {
 
+	Integer id;
 	
 	@Autowired
 	private MateriaService materiaService;
@@ -46,11 +50,11 @@ public class MateriaController {
 
 	
 
-	@GetMapping("/insertMatEst")
+	@GetMapping("/insertmatEst")
 	public ModelAndView insertMatEst() {
 		ModelAndView mav = new ModelAndView();
 		List<Catalogo_materias> catMaterias = null;
-		
+
 		try {
 			catMaterias = catMateriaService.findAllCatMat();
 		} catch (Exception e) {
@@ -67,16 +71,16 @@ public class MateriaController {
 	@PostMapping("/saveMat")
 	public ModelAndView guardarMat(@Valid @ModelAttribute Materia materia, BindingResult result ) {
 		List<Catalogo_materias> catMaterias = null;
-
 		ModelAndView mav = new ModelAndView();
 		
 		if(result.hasErrors()) {
+			System.out.println(result.toString());
 			catMaterias = catMateriaService.findAllCatMat();
 			mav.addObject("catMaterias", catMaterias);
 			mav.setViewName("InsertMat");
 
-		} else {		    
-			
+		} else {
+			System.out.println("entre al else");
 
 			if(materia.getNota()>=6) {
 				materia.setResultado("APROBADO");
@@ -104,5 +108,23 @@ public class MateriaController {
 		return mav;
 	}
 	
-	
+
+    @RequestMapping("/updatematEst")
+    public ModelAndView updateMateriaEst(@RequestParam("id") Integer id) {
+    	
+        ModelAndView mav = new ModelAndView();
+         Materia materia = new Materia();
+        
+        try {
+            materia = materiaService.findOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        mav.addObject("materia", materia);
+		mav.setViewName("updatemarEst");
+		return mav;
+    }
+    
 }

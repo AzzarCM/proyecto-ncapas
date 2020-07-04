@@ -28,8 +28,8 @@ public class Materia {
 	
 	 @ManyToOne(fetch= FetchType.LAZY)
 	 @JoinColumn(name="id_catmateria")
-	 private Catalogo_materias id_catmateria;
-	
+	 private Catalogo_materias catalogo_materias;
+
 	@NotNull(message="No puede estar vacio")
 	@Min(value=2005, message="No puede ingresar un año antes del 2005")  
     @Max(value=2020, message="No puede ingresar un año después del 2020")  
@@ -46,9 +46,7 @@ public class Materia {
     @Max(value=10, message="La nota no puede ser mayor a 10")  
 	@Column(name="nota")
 	private Float nota;
-	
-	
-	@NotNull(message="No puede estar vacio")
+
 	@Column(name="id_estudiante")
 	private Integer id_estudiante;
 	
@@ -109,13 +107,19 @@ public class Materia {
 
 
 	public Catalogo_materias getId_catmateria() {
-		return id_catmateria;
+		return catalogo_materias;
 	}
 
+	public Catalogo_materias getCatalogo_materias() {
+		return catalogo_materias;
+	}
 
+	public void setCatalogo_materias(Catalogo_materias catalogo_materias) {
+		this.catalogo_materias = catalogo_materias;
+	}
 
 	public void setId_catmateria(Catalogo_materias id_catmateria) {
-		this.id_catmateria = id_catmateria;
+		this.catalogo_materias = id_catmateria;
 	}
 
 	
