@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.proyecto.domain.Catalogo_materias;
+import com.uca.capas.proyecto.domain.Expediente;
 import com.uca.capas.proyecto.domain.Materia;
 import com.uca.capas.proyecto.service.CatMateriaService;
+import com.uca.capas.proyecto.service.ExpedienteService;
 import com.uca.capas.proyecto.service.MateriaService;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
@@ -31,6 +33,9 @@ public class MateriaController {
 	@Autowired
 	private MateriaService materiaService;
 	
+	 @Autowired
+	 private ExpedienteService expedienteService;
+
 	@Autowired
 	private CatMateriaService catMateriaService;
 	Materia idmat = new Materia();
@@ -39,15 +44,18 @@ public class MateriaController {
 	public ModelAndView initMain(@RequestParam(value = "id")Integer id) {
 		ModelAndView mav = new ModelAndView();
 		List<Materia> materias = null;
-
 		idmat.setId_estudiante(id);
 		aux = idmat.getId_estudiante();
+		
+		
 		try {
 			materias = materiaService.findAllMateriasEst(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		mav.addObject("idmat", idmat);
+//		mav.addObject("estudiante", exp.getNombres().toString());
+
 		mav.addObject("materias", materias);
 		mav.setViewName("Materia");
 		return mav;
@@ -115,7 +123,7 @@ public class MateriaController {
 	
 
     @RequestMapping("/updatematEst")
-    public ModelAndView updateMateriaEst(@RequestParam("id") Integer id) {
+    public ModelAndView updateMateriaEst(@RequestParam(value = "id") Integer id) {
     	
         ModelAndView mav = new ModelAndView();
          Materia materia = new Materia();

@@ -13,39 +13,35 @@
 	<form method="post" th:action="@{/saveMat}" th:object="${materia}">
 		<div class="form-group">
 			
-
+<br>
                 
-		<label  class="col-form-label">Catalogo de materias: </label> <br>
-		<select th:field="*{catalogo_materias.id_catmateria}">
+		<label  class="mdb-select md-form">Catalogo de materias: </label> 
+		<select th:field="*{catalogo_materias.id_catmateria}" class="form-control">
 			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}" class="form-control"  placeholder="Ingrese el nombre"></th></option>
 
-		<label>Catalogo de materias: </label>
-		<select th:field="*{catalogo_materias.id_catmateria}">
-			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}"></th></option>
-		</select><br>
-		
-		<label  class="col-form-label">Año: <input  class="form-control" placeholder="Ingrese el año" type="number" id="anio" th:field="*{anio}" ></label>
+		<br> <br>
+		<label  class="col-form-label">Año: <br> <input  class="form-control" placeholder="Ingrese el año" type="number" id="anio" th:field="*{anio}" ></label><br>
 		<span th:errors="${materia.anio}" style="color:  #E81505;"></span><br>
 		
 				
-		<label  class="col-form-label">Ciclo: </label> <br>
-		<select th:field="*{ciclo}">
-			<option th:value="1" ><th class="text-center" th:text="01"></th></option>
+		<label  class="mdb-select md-form">Ciclo: </label> <br>
+		<select th:field="*{ciclo}" class="form-control">
+			<option th:value="1"  ><th class="text-center" th:text="01"></th></option>
 			<option th:value="2" ><th class="text-center" th:text="02"></th></option>
 			<option th:value="1" ><th class="text-center" th:text="03"></th></option>
 		</select>
 		<br>
-		<label class="col-form-label">Nota: <br> <input type="number" class="form-control"  placeholder="Ingrese el nombre" id="nota" th:field="*{nota}" ></label><br>
-		<span th:errors="${materia.nota}" style="color:  #E81505;"></span><br>
+		<label class="col-form-label">Nota: <br> <input class="form-control"  placeholder="Ingrese la nota" type="number" id="nota" th:field="*{nota}" ></label><br>
+		<span th:errors="${materia.nota}" style="color:  #E81505;"></span>
 		 </div>
 			
-		<br>
+		
 			<div class="btn-group mr-4" role="group" aria-label="Third group">
-                <input type="submit" class="btn btn-primary" value="Crear"/>
+                <input type="submit"class="btn btn-info mb-4" value="Crear"/>
             </div>
             
             <div class="btn-group" role="group" aria-label="Third group">
-                <a class="btn btn-warning" href="/materias">Regresar</a>
+                <a class="btn btn-info mb-4"href="/materias">Regresar</a>
             </div>
 		
 	
