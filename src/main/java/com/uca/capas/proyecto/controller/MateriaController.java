@@ -8,15 +8,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-=======
 import org.springframework.web.bind.annotation.*;
->>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.proyecto.domain.Catalogo_materias;

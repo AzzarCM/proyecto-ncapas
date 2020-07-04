@@ -42,11 +42,8 @@ public class JPAConfiguration {
 
         dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/finalCapas");
         dataSource.setUsername("postgres");
-<<<<<<< HEAD
         dataSource.setPassword("danni");
-=======
-        dataSource.setPassword("camote99");
->>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
+//        dataSource.setPassword("camote99");
 
         return dataSource;
     }
