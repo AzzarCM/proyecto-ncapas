@@ -124,8 +124,10 @@ public class MateriaController {
 
     @RequestMapping("/updatematEst")
     public ModelAndView updateMateriaEst(@RequestParam(value = "id") Integer id) {
-    	
+		List<Catalogo_materias> catMaterias = null;
         ModelAndView mav = new ModelAndView();
+        catMaterias = catMateriaService.findAllCatMat();
+		mav.addObject("catMaterias", catMaterias);
          Materia materia = new Materia();
         
         try {
@@ -134,9 +136,9 @@ public class MateriaController {
             e.printStackTrace();
         }
         
-        
+        System.out.println(materia.getNota().toString());
         mav.addObject("materia", materia);
-		mav.setViewName("updatemarEst");
+		mav.setViewName("updatematEst");
 		return mav;
     }
     

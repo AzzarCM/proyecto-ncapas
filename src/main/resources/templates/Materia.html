@@ -33,12 +33,13 @@
 		</thead>
 		<tbody>
 			<tr th:each="m : ${materias}">
+			    <th class="text-center"><a th:href="@{'/updatematEst?id=' + ${m.id_materia}}"><i class="fa fa-pencil-square-o"></i></a></th>
+			
 				<td  class="text-center" th:text="${m.catalogo_materias.nombre}"></td>
 				<td  class="text-center" th:text="${m.anio}"></td>
 				<td  class="text-center" th:text="${m.ciclo}"></td>
 				<td  class="text-center" th:text="${m.nota}"></td>
 				<td  class="text-center" th:text="${m.resultado}"></td>
-				<td class="text-center"><a th:href="@{'/updatematEst?id=' + ${m.id_catmateria}}"><i class="fa fa-pencil-square-o"></i></a></td>
 				
 			</tr>
 		</tbody>
