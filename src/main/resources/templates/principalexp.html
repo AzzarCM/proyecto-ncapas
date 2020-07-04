@@ -20,6 +20,7 @@
 <table>
     <thead>
     <tr>
+        <th>Accion</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Aprovadas</th>
@@ -29,6 +30,7 @@
     </thead>
     <tbody>
     <tr th:each="m : ${expedientes}">
+        <td><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}">materias</a></td>
         <td th:text="${m.nombres}"></td>
         <td th:text="${m.apellidos}"></td>
         <td th:text="${m.aprovadas}"></td>
