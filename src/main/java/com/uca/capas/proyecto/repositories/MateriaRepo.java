@@ -18,10 +18,10 @@ public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 	@Query(nativeQuery=true, value="SELECT * FROM public.materia WHERE id_estudiante = ?1")
 	public List<Materia> mostrarMatEst(Integer codigo) throws DataAccessException;
 
-	@Query(nativeQuery=true, value ="SELECT COUNT(resultado) FROM PUBLIC.materia WHERE resultado = 'APROVADO' and id_estudiante = :codigo")
+	@Query(nativeQuery=true, value ="SELECT COUNT(resultado) FROM PUBLIC.materia WHERE resultado = 'APROBADO' and id_estudiante = :codigo")
 	public Integer materiaAprovada(Integer codigo) throws DataAccessException;
 
-	@Query(nativeQuery=true, value ="SELECT COUNT(resultado) FROM PUBLIC.materia WHERE resultado = 'REPROVADO' and id_estudiante = :codigo")
+	@Query(nativeQuery=true, value ="SELECT COUNT(resultado) FROM PUBLIC.materia WHERE resultado = 'REPROBADO' and id_estudiante = :codigo")
 	public Integer materiaReprovada(Integer codigo) throws DataAccessException;
 
 	@Query(nativeQuery=true, value ="SELECT AVG(nota) FROM PUBLIC.materia WHERE id_estudiante = :codigo")

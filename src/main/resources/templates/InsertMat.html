@@ -14,10 +14,16 @@
 		<div class="form-group">
 			
 			
+<<<<<<< HEAD
                 
 		<label  class="col-form-label">Catalogo de materias: </label> <br>
 		<select th:field="*{catalogo_materias.id_catmateria}">
 			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}" class="form-control"  placeholder="Ingrese el nombre"></th></option>
+=======
+		<label>Catalogo de materias: </label>
+		<select th:field="*{catalogo_materias.id_catmateria}">
+			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}"></th></option>
+>>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
 		</select><br>
 		
 		<label  class="col-form-label">Año: <input  class="form-control" placeholder="Ingrese el año" type="number" id="anio" th:field="*{anio}" ></label>

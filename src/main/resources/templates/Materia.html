@@ -8,6 +8,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
 	<div class="container mt-5">
 	<h1>Listado de materias de Estudiante</h1>
     <br>
@@ -25,16 +26,36 @@
 				<th class="text-center">Resultado</th>   
 				<th class="text-center">Accion</th>
 
+=======
+	<a href="/insertmatEst">insertar materia</a>
+	<h1>Listado de Materias</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Año</th>
+				<th>Ciclo</th>
+				<th>Nota</th>
+				<th>Resultado</th>
+>>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="m : ${materias}">
+<<<<<<< HEAD
 				<td  class="text-center" th:text="${m.catalogo_materias.nombre}"></td>
 				<td  class="text-center" th:text="${m.anio}"></td>
 				<td  class="text-center" th:text="${m.ciclo}"></td>
 				<td  class="text-center" th:text="${m.nota}"></td>
 				<td  class="text-center" th:text="${m.resultado}"></td>
 				<td class="text-center"><a th:href="@{'/updatematEst?id=' + ${m.id_catmateria}}"><i class="fa fa-pencil-square-o"></i></a></td>
+=======
+				<td th:text="${m.catalogo_materias.nombre}"></td>
+				<td th:text="${m.anio}"></td>
+				<td th:text="${m.ciclo}"></td>
+				<td th:text="${m.nota}"></td>
+				<td th:text="${m.resultado}"></td>
+>>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
 			</tr>
 		</tbody>
 	</table><br>

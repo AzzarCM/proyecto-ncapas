@@ -2,16 +2,21 @@ package com.uca.capas.proyecto.controller;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 4fda9cace232295ca4360c7b9e2f4cf5c9e19d85
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.proyecto.domain.Catalogo_materias;
@@ -31,18 +36,21 @@ public class MateriaController {
 	
 	@Autowired
 	private CatMateriaService catMateriaService;
-	
+	Materia idmat = new Materia();
+	Integer aux;
 	@RequestMapping("/materiaEstudiante")
-	public ModelAndView initMain() {
+	public ModelAndView initMain(@RequestParam(value = "id")Integer id) {
 		ModelAndView mav = new ModelAndView();
 		List<Materia> materias = null;
 
+		idmat.setId_estudiante(id);
+		aux = idmat.getId_estudiante();
 		try {
-			materias = materiaService.findAllMateriasEst(2);
+			materias = materiaService.findAllMateriasEst(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		mav.addObject("idmat", idmat);
 		mav.addObject("materias", materias);
 		mav.setViewName("Materia");
 		return mav;
@@ -88,7 +96,7 @@ public class MateriaController {
 				materia.setResultado("REPROBADO");
 			}
 			
-			materia.setId_estudiante(2);
+			materia.setId_estudiante(aux);
 			
 			materiaService.save(materia);
 			
@@ -96,7 +104,7 @@ public class MateriaController {
 			List<Materia> materias = null;
 			
 			try {
-				materias = materiaService.findAllMateriasEst(2);
+				materias = materiaService.findAllMateriasEst(aux);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
