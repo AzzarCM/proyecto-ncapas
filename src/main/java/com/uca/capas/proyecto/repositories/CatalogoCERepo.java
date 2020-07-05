@@ -15,4 +15,7 @@ public interface CatalogoCERepo extends JpaRepository<CatalogoCE, Integer> {
     @Query(nativeQuery=true, value="SELECT * FROM public.catalogo_ce WHERE id_municipio = :idmun")
     public List<CatalogoCE> filtrarCE(Integer idmun) throws DataAccessException;
 
+    @Query(nativeQuery=true, value="SELECT c.id_catce, c.nombre, c.estado, c.id_municipio FROM PUBLIC.municipio m, PUBLIC.catalogo_ce c WHERE m.id_municipio = c.id_municipio AND m.nombre = :nombre")
+    public List<CatalogoCE> filtrarCEporNombre(String nombre) throws DataAccessException;
+
 }

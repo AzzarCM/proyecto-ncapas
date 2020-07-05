@@ -42,7 +42,8 @@
             </thead>
             <th:block th:each="m : ${expedientes}">
                 <tr>
-                    <th class="text-center"><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                    <th class="text-center"><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i style="padding-right: 1em" class="fa fa-search-plus"></i></a>
+                                            <a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
                     <th th:text="${m.nombres}" class="text-center"></th>
                     <th th:text="${m.apellidos}" class="text-center"></th>
                     <th th:text="${m.aprovadas}" class="text-center"></th>

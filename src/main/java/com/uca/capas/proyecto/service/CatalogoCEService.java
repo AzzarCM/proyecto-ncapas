@@ -11,5 +11,6 @@ public interface CatalogoCEService {
     public List<CatalogoCE> filtrarCE(Integer codigo) throws DataAccessException;
     CatalogoCE findOne(Integer id) throws  DataAccessException;
     void save(CatalogoCE escuela) throws DataAccessException;
+    public List<CatalogoCE> filtrarCEporNombre(String nombre) throws DataAccessException;
 
 }

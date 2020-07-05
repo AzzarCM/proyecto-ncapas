@@ -13,4 +13,7 @@ public interface ExpedienteRepo extends JpaRepository<Expediente, Integer> {
 
     @Query(nativeQuery=true, value="SELECT * FROM PUBLIC.expediente WHERE apellidos= :cadena")
     public List<Expediente> buscarPorApellido(String cadena) throws DataAccessException;
+
+    @Query(nativeQuery=true, value="SELECT nombres FROM PUBLIC.expediente WHERE id_estudiante = :id")
+    public String NombrePorId(Integer id) throws DataAccessException;
 }

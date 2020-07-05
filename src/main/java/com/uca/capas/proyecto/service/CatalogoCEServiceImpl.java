@@ -34,4 +34,9 @@ public class CatalogoCEServiceImpl implements CatalogoCEService {
     public void save(CatalogoCE escuela) throws DataAccessException {
         catalogoCE.save(escuela);
     }
+
+    @Override
+    public List<CatalogoCE> filtrarCEporNombre(String nombre) throws DataAccessException {
+        return catalogoCE.filtrarCEporNombre(nombre);
+    }
 }

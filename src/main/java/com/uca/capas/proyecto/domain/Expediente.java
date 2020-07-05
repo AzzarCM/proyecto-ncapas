@@ -36,7 +36,6 @@ public class Expediente {
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @NotNull(message = "El campo edad no debe estar vacio")
     @Column(name = "edad")
     private Integer edad;
 

@@ -283,6 +283,21 @@ button:not(:disabled),
   cursor: pointer;
 }
 
+select {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1rem + 2px);
+    padding: 0.5rem 1.1rem;
+    font-size: 1.063rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    
+}
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,

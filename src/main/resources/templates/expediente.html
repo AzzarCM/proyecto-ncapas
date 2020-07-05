@@ -1,35 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Expediente</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
 </head>
+
 <body>
-    <form method="post" th:action="@{filtrar}">
-        <label>id municipio: </label>
-        <input type="number" name="codigo"><br>
-        <input type="submit" value="filtrar">
-    </form>
-    <br>
+<div class="container col-md-6">
+    <div class="jumbotron">
+        <h1>Insertar expediente de alumno</h1>
+        <form method="post" th:action="@{filtrar}" th:object="${escuela}">
+            <label class="col-form-label">Departamento: </label>
+            <select class="custom-select" id="departamentoSelect">
+                <option value="0">- Seleccione un departamento -</option>
+                <option th:each="d: ${departamento}" th:value="${d.idDepartamento}" th:text="${d.nombre}"></option>
+            </select>
+            <label class="col-form-label">Municipio: </label>
+            <select name="codigo" class="custom-select" th:field="*{municipio.idMunicipio}" id="municipioSelect">
+                <option value="0">- Seleccione un municipio -</option>
+            </select>
 
-    <form method="post" th:action="@{insertar}" th:object="${expediente}">
-        <label>Nombre: </label><input type="text" th:field="*{nombres}"> <br>
-        <label>Apellido: </label><input type="text" th:field="*{apellidos}"> <br>
-        <label>Carne: </label><input type="text" th:field="*{carneMin}"> <br>
-        <label>fecha: </label><input type="text" th:field="*{fechaNacimiento}"> <br>
-        <label>edad: </label><input type="number" th:field="*{edad}"> <br>
-        <label>direccion: </label><input type="text" th:field="*{direccion}"> <br>
-        <label>fijo: </label><input type="text" th:field="*{telFijo}"> <br>
-        <label>movil: </label><input type="text" th:field="*{telMovil}"> <br>
-        <label>papa: </label><input type="text" th:field="*{nombrePadre}"> <br>
-        <label>mama: </label><input type="text" th:field="*{nombreMadre}"> <br>
-        <label>Institucion: </label><select th:field="*{institucion}"> <br>
-            <th:block th:each="centro, row: ${centros}">
-                <option th:value="${centro.nombre}" th:text="${centro.nombre}"></option>
-        </select><br>
+            <div class="btn-toolbar mt-5" role="toolbar">
+                <label class="col-form-label">Nombre municipio: </label>
+                <div class="btn-group mr-5" role="group" aria-label="Second group">
+                    <input type="text" class="form-control" placeholder="Nombre del municipio"
+                           name="valor">
+                </div>
+                <div class="btn-group mr-5" role="group" aria-label="Third group">
+                    <button class="btn btn-warning btn-lg" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </form>
         <br>
-        <input type="submit" value="insertar">
-    </form>
+        <form method="post" th:action="@{insertar}" th:object="${expediente}">
+            <label class="col-form-label">Institucion: </label>
+            <select class="custom-select">
+                <option value="0">- Seleccione una institucion -</option>
+                <option th:each="centro, row: ${centros}" th:value="${centro.nombre}" th:text="${centro.nombre}">
+                </option>
+            </select>
+            <div class="form-group">
+                <label class="col-form-label">Nombres</label>
+                <input type="text" class="form-control" placeholder="Ingrese los nombres" th:field="*{nombres}">
+                <span th:errors="*{nombres}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Apellidos</label>
+                <input type="text" class="form-control" placeholder="Ingrese los apellidos" th:field="*{apellidos}">
+                <span th:errors="*{apellidos}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Carne de minoridad</label>
+                <input type="text" class="form-control" placeholder="Ingrese el carne de minoridad"
+                       th:field="*{carneMin}">
+                <span th:errors="*{carneMin}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Fecha de nacimiento</label>
+                <input type="text" class="form-control" id="fechaNacimiento"
+                       placeholder="Ingrese la fecha de nacimiento" th:field="*{fechaNacimiento}">
+                <span th:errors="*{fechaNacimiento}" style="color:#E81505"></span>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#fechaNacimiento').datepicker({
+                            format: 'dd/mm/yyyy'
+                        });
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Direccion de residencia</label>
+                <input type="text" class="form-control" placeholder="Ingrese su direccion de residencia"
+                       th:field="*{direccion}">
+                <span th:errors="*{direccion}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Telefono fijo</label>
+                <input type="text" class="form-control" placeholder="exp: 2277-7777" th:field="*{telFijo}">
+                <span th:errors="*{telFijo}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Telefono Movil</label>
+                <input type="text" class="form-control" placeholder="exp: 7678-3896" th:field="*{telMovil}">
+                <span th:errors="*{telMovil}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Nombre del padre</label>
+                <input type="text" class="form-control" placeholder="Ingrese el nombre del padre"
+                       th:field="*{nombrePadre}">
+                <span th:errors="*{nombrePadre}" style="color:#E81505"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Nombre de la madre</label>
+                <input type="text" class="form-control" placeholder="Ingrese el nombre de la madre"
+                       th:field="*{nombreMadre}">
+                <span th:errors="*{nombreMadre}" style="color:#E81505"></span>
+            </div>
 
+            <div class="btn-group mr-5" role="group" aria-label="Second group">
+                <input type="submit" class="btn btn-primary btn-lg" value="Insertar" />
+            </div>
+        </form>
+    </div>
+</div>
 </body>
+<script src="js/selectores.js"></script>
+
 </html>

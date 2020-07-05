@@ -33,4 +33,9 @@ public class ExpedienteServiceImpl implements ExpedienteService {
     public List<Expediente> buscarPorApellido(String cadena) throws DataAccessException {
         return expedienteRepo.buscarPorApellido(cadena);
     }
+
+    @Override
+    public String buscarNombrePorId(Integer id) throws DataAccessException {
+        return expedienteRepo.NombrePorId(id);
+    }
 }

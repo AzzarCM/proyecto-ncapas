@@ -2,19 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crear materia</title>
+    <title>Actualizar materia de estudiante</title>
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
 </head>
 <body>
 <div class="container col-md-6">
     <br>
     <div class="jumbotron">
-	<h1>Guardar Materia</h1>
+	<h1>Editar Materia Estudiante</h1>
 	<form method="post" th:action="@{/saveMat}" th:object="${materia}">
 		<div class="form-group">
+		<input th:field="*{id_materia}" hidden><br>
 			
 <br>
-                
+      
 		<label  class="mdb-select md-form">Catalogo de materias: </label> 
 		<select th:field="*{catalogo_materias.id_catmateria}" class="form-control">
 			<option th:each="im: ${catMaterias}" th:value="${im.id_catmateria}"><th th:text="${im.nombre}" class="form-control"  placeholder="Ingrese el nombre"></th></option>
