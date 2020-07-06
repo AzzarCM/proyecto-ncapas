@@ -11,38 +11,12 @@
 <body>
 <div class="container col-md-6">
     <div class="jumbotron">
-        <h1>Insertar expediente de alumno</h1>
-        <form method="post" th:action="@{filtrar}" th:object="${escuela}">
-            <label class="col-form-label">Departamento: </label>
-            <select class="custom-select" id="departamentoSelect">
-                <option value="0">- Seleccione un departamento -</option>
-                <option th:each="d: ${departamento}" th:value="${d.idDepartamento}" th:text="${d.nombre}"></option>
-            </select>
-            <label class="col-form-label">Municipio: </label>
-            <select name="codigo" class="custom-select" th:field="*{municipio.idMunicipio}" id="municipioSelect">
-                <option value="0">- Seleccione un municipio -</option>
-            </select>
+        <h1>Acualizar expediente de alumno</h1>
 
-            <div class="btn-toolbar mt-5" role="toolbar">
-                <label class="col-form-label">Nombre municipio: </label>
-                <div class="btn-group mr-5" role="group" aria-label="Second group">
-                    <input type="text" class="form-control" placeholder="Nombre del municipio"
-                           name="valor">
-                </div>
-                <div class="btn-group mr-5" role="group" aria-label="Third group">
-                    <button class="btn btn-warning btn-lg" type="submit">Filtrar</button>
-                </div>
-            </div>
-        </form>
-        <br>
-        <form method="post" th:action="@{insertar}" th:object="${expediente}">
-            <label class="col-form-label">Institucion: </label>
-            <select th:field="*{institucion}" thclass="custom-select">
-                <option value="0">- Seleccione una institucion -</option>
-                <option th:each="centro, row: ${centros}" th:value="${centro.nombre}" th:text="${centro.nombre}">
-                </option>
-            </select>
+        <form method="post" th:action="@{/insertar}" th:object="${expediente}">
+            <input th:field="*{idEstudiante}" hidden><br>
             <div class="form-group">
+                <label class="col-form-label">Codigo: <span  th:text="*{idEstudiante}"></span></label><br>
                 <label class="col-form-label">Nombres</label>
                 <input type="text" class="form-control" placeholder="Ingrese los nombres" th:field="*{nombres}">
                 <span th:errors="*{nombres}" style="color:#E81505"></span>
@@ -101,7 +75,7 @@
             </div>
 
             <div class="btn-group mr-5" role="group" aria-label="Second group">
-                <input type="submit" class="btn btn-primary btn-lg" value="Insertar" />
+                <input type="submit" class="btn btn-primary btn-lg" value="Actualizar" />
             </div>
         </form>
     </div>

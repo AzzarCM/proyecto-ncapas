@@ -13,4 +13,5 @@ public interface ExpedienteService {
     public List<Expediente> buscarPorNombre(String cadena) throws DataAccessException;
     public List<Expediente> buscarPorApellido(String cadena) throws DataAccessException;
     public String buscarNombrePorId(Integer id) throws DataAccessException;
+    public Expediente findOne(Integer id) throws DataAccessException;
 }

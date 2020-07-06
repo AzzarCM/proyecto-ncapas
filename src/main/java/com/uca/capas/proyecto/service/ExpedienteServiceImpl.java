@@ -38,4 +38,9 @@ public class ExpedienteServiceImpl implements ExpedienteService {
     public String buscarNombrePorId(Integer id) throws DataAccessException {
         return expedienteRepo.NombrePorId(id);
     }
+
+    @Override
+    public Expediente findOne(Integer id) throws DataAccessException {
+        return expedienteRepo.getOne(id);
+    }
 }

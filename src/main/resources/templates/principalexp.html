@@ -14,10 +14,10 @@
     <form method="post" th:action="@{/search}">
         <div class="form-group">
             <label class="col-form-label">Buscar por: </label>
-            <select class="custom-select" id="municipioSelect">
+            <select class="custom-select" th:name="opcion">
                 <option value="0">- Seleccione una opcion para filtrar -</option>
-                <option name="id" value="1" ><th th:text="Nombre"></th></option>
-                <option name="id2" value="2" ><th th:text="Apellido"></th></option>
+                <option value="nombre" ><th th:text="Nombre"></th></option>
+                <option value="apellido" ><th th:text="Apellido"></th></option>
             </select> <br>
             <label class="col-form-label">Valor de busqueda: </label>
             <input type="text" class="form-control"  placeholder="Ingrese el valor a buscar" name="valor">
@@ -42,7 +42,7 @@
             </thead>
             <th:block th:each="m : ${expedientes}">
                 <tr>
-                    <th class="text-center"><a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i style="padding-right: 1em" class="fa fa-search-plus"></i></a>
+                    <th class="text-center"><a th:href="@{'/updateExpediente?id=' + ${m.idEstudiante}}"><i style="padding-right: 1em" class="fa fa-search-plus"></i></a>
                                             <a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
                     <th th:text="${m.nombres}" class="text-center"></th>
                     <th th:text="${m.apellidos}" class="text-center"></th>

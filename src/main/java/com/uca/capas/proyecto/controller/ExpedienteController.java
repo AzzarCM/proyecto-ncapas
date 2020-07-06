@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -49,11 +50,12 @@ public class ExpedienteController {
         mav.setViewName("expediente");
         return mav;
     }
-
+    String valorAux;
     @RequestMapping("/filtrar")
     public ModelAndView filtrar(@RequestParam(value = "valor")String valor){
         ModelAndView mav = new ModelAndView();
         CatalogoCE escuela = new CatalogoCE();
+        valorAux = valor;
         List<CatalogoCE> centrosE = catalogoCEService.filtrarCEporNombre(valor);
         List<Departamento> departamentos;
         try{
@@ -89,7 +91,6 @@ public class ExpedienteController {
                 e.printStackTrace();
             }
             mav.addObject("escuela", escuela);
-            mav.addObject("expediente", expediente);
             mav.setViewName("expediente");
         }else{
             expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
@@ -102,18 +103,19 @@ public class ExpedienteController {
     }
 
     @RequestMapping("/search")
-    public ModelAndView search(@RequestParam(value = "valor")String valor){//, @RequestParam(value = "id")Integer id
+    @ResponseBody
+    public ModelAndView search(@RequestParam(value = "valor")String valor,
+                               @RequestParam(value = "opcion") String opcion){
         ModelAndView mav = new ModelAndView();
         List<Expediente> expedientes = null;
-        expedientes = expedienteService.buscarPorNombre(valor);/*
-
-        if(id.equals("1")){
-            try{
-                expedienteService.buscarPorNombre(valor);
-            }catch (Exception e){
-                e.printStackTrace();;
-            }
-        }*/
+        expedientes = expedienteService.buscarPorNombre(valor);
+        switch (opcion){
+            case "nombre": expedientes = expedienteService.buscarPorNombre(valor);
+            break;
+            case "apellido": expedientes = expedienteService.buscarPorApellido(valor);
+            default:
+                System.out.println("ha ocurrido un error");
+        }
         for(Expediente m : expedientes){
             m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
             m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
@@ -127,6 +129,21 @@ public class ExpedienteController {
     public ModelAndView loadMain(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("principalexp");
+        return mav;
+    }
+
+    @RequestMapping("/updateExpediente")
+    public ModelAndView update(@RequestParam(value = "id")Integer id){
+        ModelAndView mav = new ModelAndView();
+        Expediente expediente = new Expediente();
+        try{
+            expediente = expedienteService.findOne(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        mav.addObject("expediente",expediente);
+        mav.setViewName("updateexp");
+
         return mav;
     }
 
