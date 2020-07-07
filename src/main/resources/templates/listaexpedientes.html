@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de expedientes</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+<h1>Listado de estudiates</h1>
+<section>
+    <table class="table table-hover">
+        <thead>
+        <tr class="table-dark">
+            <th class="text-center">Accion</th>
+            <th class="text-center">Nombres</th>
+            <th class="text-center">Apellidos</th>
+            <th class="text-center">Aprobadas</th>
+            <th class="text-center">Reprobadas</th>
+            <th class="text-center">Promedio</th>
+        </tr>
+        </thead>
+        <th:block th:each="m : ${expedientes}">
+            <tr>
+                <th class="text-center"><a th:href="@{'/updateExpediente?id=' + ${m.idEstudiante}}"><i style="padding-right: 1em" class="fa fa-search-plus"></i></a>
+                    <a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                <th th:text="${m.nombres}" class="text-center"></th>
+                <th th:text="${m.apellidos}" class="text-center"></th>
+                <th th:text="${m.aprovadas}" class="text-center"></th>
+                <th th:text="${m.reprovadas}" class="text-center"></th>
+                <th th:text="${m.promedio}" class="text-center"></th>
+            </tr>
+        </th:block>
+    </table>
+</section>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-warning" href="/mainExpediente">Regresar</a>
+    </div>
+</div>
+</body>
+</html>

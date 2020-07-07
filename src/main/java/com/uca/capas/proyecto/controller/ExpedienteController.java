@@ -50,6 +50,7 @@ public class ExpedienteController {
         mav.setViewName("expediente");
         return mav;
     }
+
     String valorAux;
     @RequestMapping("/filtrar")
     public ModelAndView filtrar(@RequestParam(value = "valor")String valor){
@@ -82,6 +83,7 @@ public class ExpedienteController {
         ModelAndView mav = new ModelAndView();
         CatalogoCE escuela = new CatalogoCE();
         List<Departamento> departamentos;
+        List<Expediente> expedientes = null;
         if(result.hasErrors()){
             System.out.println(result.toString());
             try{
@@ -93,6 +95,19 @@ public class ExpedienteController {
             mav.addObject("escuela", escuela);
             mav.setViewName("expediente");
         }else{
+            String mensaje = "Expediente ingresado con exito!";
+            try {
+                expedientes = expedienteService.findAll();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            for(Expediente m : expedientes){
+                m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+                m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
+                m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
+            }
+            mav.addObject("expedientes", expedientes);
+            mav.addObject("mensaje", mensaje);
             expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
             expedienteService.save(expediente);
             mav.setViewName("principalexp");
@@ -122,12 +137,25 @@ public class ExpedienteController {
             m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
         }
         mav.addObject("expedientes", expedientes);
-        mav.setViewName("principalexp");
+        mav.setViewName("listaexpedientes");
         return mav;
     }
+
     @RequestMapping("/mainExpediente")
     public ModelAndView loadMain(){
         ModelAndView mav = new ModelAndView();
+        List<Expediente> expedientes = null;
+        try {
+            expedientes = expedienteService.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        for(Expediente m : expedientes){
+            m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+            m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
+            m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
+        }
+        mav.addObject("expedientes", expedientes);
         mav.setViewName("principalexp");
         return mav;
     }
@@ -136,18 +164,43 @@ public class ExpedienteController {
     public ModelAndView update(@RequestParam(value = "id")Integer id){
         ModelAndView mav = new ModelAndView();
         Expediente expediente = new Expediente();
-        try{
-            expediente = expedienteService.findOne(id);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        mav.addObject("expediente",expediente);
-        mav.setViewName("updateexp");
-
+            try{
+                expediente = expedienteService.findOne(id);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("expediente",expediente);
+            mav.setViewName("updateexp");
         return mav;
     }
 
-
+    @RequestMapping("/actualizarexp")
+    public  ModelAndView buttomact(@Valid @ModelAttribute Expediente expediente,BindingResult result){
+        ModelAndView mav = new ModelAndView();
+        List<Expediente> expedientes = null;
+        if(result.hasErrors()){
+            mav.addObject("expediente",expediente);
+            mav.setViewName("updateexp");
+        }else {
+            try {
+                expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
+                expedienteService.save(expediente);
+                expedientes = expedienteService.findAll();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            for(Expediente m : expedientes){
+                m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+                m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
+                m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
+            }
+            String mensaje = "Expediente Actualizado con exito!";
+            mav.addObject("mensaje", mensaje);
+            mav.addObject("expedientes", expedientes);
+            mav.setViewName("principalexp");
+        }
+        return mav;
+    }
 
     public Integer CalcularEdad(Date fechaNacimiento){
         Date d2 = new Date();

@@ -2,15 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Catalogo Usuarios</title>
+    <title>Expediente</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/tablas.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Expediente</h1>
+<div class="container col-md-6">
+    <div class="jumbotron">
+    <h1>Expediente</h1><br>
+        <a class="btn btn-info mb-4" href="/expediente"><i class="fa fa-plus mr-1"> </i> Agregar nuevo expediente</a>
     <br>
+        <p th:text="${mensaje}"></p>
     <form method="post" th:action="@{/search}">
         <div class="form-group">
             <label class="col-form-label">Buscar por: </label>
@@ -20,14 +23,17 @@
                 <option value="apellido" ><th th:text="Apellido"></th></option>
             </select> <br>
             <label class="col-form-label">Valor de busqueda: </label>
-            <input type="text" class="form-control"  placeholder="Ingrese el valor a buscar" name="valor">
+            <input type="text" class="form-control"  placeholder="Ingrese el valor a buscar" name="valor"><br>
             <div class="btn-group mr-4" aria-label="Third group">
                 <input type="submit" class="btn btn-primary" value="Buscar"/>
             </div>
+            <div class="btn-group" role="group" aria-label="Third group">
+                <a class="btn btn-warning" href="/index">Regresar</a>
+            </div>
         </div>
     </form>
-    <br>
-    <h2>Listado de estudiates</h2>
+</div>
+    <h2>Listado de todos los estudiates</h2>
     <section>
         <table class="table table-hover">
             <thead>
@@ -43,7 +49,7 @@
             <th:block th:each="m : ${expedientes}">
                 <tr>
                     <th class="text-center"><a th:href="@{'/updateExpediente?id=' + ${m.idEstudiante}}"><i style="padding-right: 1em" class="fa fa-search-plus"></i></a>
-                                            <a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
+                        <a th:href="@{'/materiaEstudiante?id=' + ${m.idEstudiante}}"><i class="fa fa-pencil-square-o"></i></a></th>
                     <th th:text="${m.nombres}" class="text-center"></th>
                     <th th:text="${m.apellidos}" class="text-center"></th>
                     <th th:text="${m.aprovadas}" class="text-center"></th>
@@ -53,9 +59,6 @@
             </th:block>
         </table>
     </section>
-    <div class="btn-group" role="group" aria-label="Third group">
-        <a class="btn btn-warning mt-4 ml-4" href="#">Regresar</a>
-    </div>
 </div>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <div class="jumbotron">
         <h1>Acualizar expediente de alumno</h1>
 
-        <form method="post" th:action="@{/insertar}" th:object="${expediente}">
+        <form method="post" th:action="@{/actualizarexp}" th:object="${expediente}">
             <input th:field="*{idEstudiante}" hidden><br>
             <div class="form-group">
                 <label class="col-form-label">Codigo: <span  th:text="*{idEstudiante}"></span></label><br>

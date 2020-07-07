@@ -64,14 +64,16 @@ public class MateriaController {
 	@GetMapping("/insertmatEst")
 	public ModelAndView insertMatEst() {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("aux", aux);
 		List<Catalogo_materias> catMaterias = null;
-
+		System.out.println("valor de mi auxiliar: "+aux);
 		try {
 			catMaterias = catMateriaService.findAllCatMat();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("valor de mi auxiliar x2: "+aux);
+		mav.addObject("aux,", aux);
 		mav.addObject("materia", new Materia());
 		mav.addObject("catMaterias", catMaterias);
 		mav.setViewName("InsertMat");
@@ -98,7 +100,7 @@ public class MateriaController {
 			} else {
 				materia.setResultado("REPROBADO");
 			}
-			
+			System.out.println("valor de mi auxiliar: "+aux);
 			materia.setId_estudiante(aux);
 			
 			materiaService.save(materia);
@@ -111,6 +113,7 @@ public class MateriaController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			mav.addObject("aux",aux);
 			mav.addObject("estudiante", nombre);
 			mav.addObject("materias", materias);
 			mav.setViewName("Materia");
