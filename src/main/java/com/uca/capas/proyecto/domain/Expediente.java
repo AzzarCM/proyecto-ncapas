@@ -1,6 +1,8 @@
 package com.uca.capas.proyecto.domain;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -32,6 +34,7 @@ public class Expediente {
     @Column(name = "carne_min")
     private String carneMin;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "El campo de la fecha no debe estar vacio")
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
