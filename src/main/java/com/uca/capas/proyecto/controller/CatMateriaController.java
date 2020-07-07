@@ -4,11 +4,13 @@ import com.uca.capas.proyecto.domain.Catalogo_materias;
 import com.uca.capas.proyecto.service.CatMateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -50,20 +52,30 @@ public class CatMateriaController {
     }
 
     @RequestMapping("/saveMateria")
-    public ModelAndView actualizar(@ModelAttribute Catalogo_materias materia){
+    public ModelAndView actualizar(@Valid @ModelAttribute Catalogo_materias materia, BindingResult result){
         ModelAndView mav = new ModelAndView();
-        try{
-            catMateriaService.save(materia);
-        }catch (Exception e){
-            e.printStackTrace();
+        if(result.hasErrors()){
+            System.out.println(result.getFieldError().getDefaultMessage());
+            String mensaje = result.getFieldError().getDefaultMessage();
+            mav.addObject("mensaje", mensaje);
+            mav.addObject("materia", materia);
+            mav.setViewName("crearMateria");
+        }else{
+            try{
+                catMateriaService.save(materia);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.setViewName("redirect:/materias");
         }
-        mav.setViewName("redirect:/materias");
         return mav;
     }
 
     @RequestMapping("/crearMateria")
     public ModelAndView crear(){
         ModelAndView mav = new ModelAndView();
+        String mensaje = "";
+        mav.addObject("mensaje", mensaje);
         Catalogo_materias materia = new Catalogo_materias();
         mav.addObject("materia", materia);
         mav.setViewName("crearMateria");

@@ -32,4 +32,9 @@ public class CatMateriaServiceImpl implements CatMateriaService {
 	public void save(Catalogo_materias Catmateria) throws DataAccessException {
 		catMateriaRepo.save(Catmateria);
 	}
+
+	@Override
+	public List<Catalogo_materias> mostrarAllCatActive() throws DataAccessException {
+		return catMateriaRepo.mostrarAllCatActive();
+	}
 }

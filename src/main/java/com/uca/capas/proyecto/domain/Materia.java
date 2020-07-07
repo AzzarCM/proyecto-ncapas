@@ -53,6 +53,17 @@ public class Materia {
 	@Column(name="resultado")
 	private String resultado;
 
+	/*
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn("id_estudiante")
+	private Expediente expediente;
+	public Expediente getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}*/
 	public Materia() {
 	}
 	public Integer getId_estudiante() {
@@ -122,10 +133,4 @@ public class Materia {
 		this.catalogo_materias = id_catmateria;
 	}
 
-	
-	
-	
-	
-	
-	
 }

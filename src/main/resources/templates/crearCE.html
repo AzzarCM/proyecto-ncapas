@@ -16,7 +16,7 @@
                 <label class="col-form-label">Nombre: </label>
                 <input type="text" class="form-control"  placeholder="Ingrese el nombre" th:field="*{nombre}">
                 <span th:errors="*{nombre}" style="color:#E81505"></span>
-
+                <p th:text="${mensaje}" style="color:#E81505"></p>
                 <label class="col-form-label">Departamento: </label>
                 <select class="custom-select" id="departamentoSelect">
                     <option value="0">- Seleccione un departamento -</option>

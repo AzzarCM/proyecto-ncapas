@@ -10,7 +10,7 @@ import com.uca.capas.proyecto.repositories.MateriaRepo;
 
 @Service
 public class MateriaServiceImpl implements MateriaService {
-	
+
 
 	@Autowired
 	MateriaRepo materiaRepo;
@@ -57,9 +57,6 @@ public class MateriaServiceImpl implements MateriaService {
 	public void delete(Integer codigoMateria) throws DataAccessException {
 		materiaRepo.deleteById(codigoMateria);		
 	}
-
-	
-
 
 
 }

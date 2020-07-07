@@ -7,11 +7,13 @@ import com.uca.capas.proyecto.service.CatalogoCEService;
 import com.uca.capas.proyecto.service.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -57,14 +59,29 @@ public class CatCEController {
     }
 
     @RequestMapping("/saveEscuela")
-    public ModelAndView actualizar(@ModelAttribute CatalogoCE escuela){
+    public ModelAndView actualizar(@Valid @ModelAttribute CatalogoCE escuela, BindingResult result){
         ModelAndView mav = new ModelAndView();
-        try{
-            catalogoCEService.save(escuela);
-        }catch (Exception e){
-            e.printStackTrace();
+        if(result.hasErrors()){
+            List<Departamento> departamentos;
+            try{
+                String mensaje = result.getFieldError().getDefaultMessage();
+                mav.addObject("mensaje", mensaje);
+                System.out.println(result);
+                departamentos = departamentoService.findAll();
+                mav.addObject("departamento", departamentos);
+                mav.addObject("escuela", escuela);
+                mav.setViewName("crearCE");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            try{
+                catalogoCEService.save(escuela);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.setViewName("redirect:/escolares");
         }
-        mav.setViewName("redirect:/escolares");
         return mav;
     }
 
@@ -73,12 +90,14 @@ public class CatCEController {
         ModelAndView mav = new ModelAndView();
         CatalogoCE escuela = new CatalogoCE();
         List<Departamento> departamentos;
+        String mensaje = "";
         try{
             departamentos = departamentoService.findAll();
             mav.addObject("departamento", departamentos);
         }catch (Exception e){
             e.printStackTrace();
         }
+        mav.addObject("mensaje", mensaje);
         mav.addObject("escuela", escuela);
         mav.setViewName("crearCE");
         return mav;

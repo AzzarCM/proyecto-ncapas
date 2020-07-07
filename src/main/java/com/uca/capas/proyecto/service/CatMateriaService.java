@@ -10,5 +10,6 @@ public interface CatMateriaService {
 	public List<Catalogo_materias> findAllCatMat() throws DataAccessException;
 	public Catalogo_materias findOne(Integer code) throws DataAccessException;
 	public void save(Catalogo_materias Catmateria) throws DataAccessException;
+	public List<Catalogo_materias> mostrarAllCatActive() throws DataAccessException;
 
 }

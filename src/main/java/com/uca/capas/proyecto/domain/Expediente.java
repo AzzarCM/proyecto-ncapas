@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Expediente {
     @Column(name = "apellidos")
     private String apellidos;
 
+    @Pattern(regexp = "^\\d{7}-\\d{1}$", message = "No concuerda con el patron xxxxxxx-x")
     @NotEmpty(message = "El campo carnet de minoridad no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "carne_min")
@@ -47,17 +49,19 @@ public class Expediente {
     @Column(name = "direccion")
     private String direccion;
 
+    @Pattern(regexp = "^\\d{4}-\\d{4}$", message = "no concuerda con el patron xxxx-xxxx")
     @NotEmpty(message = "El campo del telefono fijo no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "tel_fijo")
     private String telFijo;
 
+    @Pattern(regexp = "^\\d{4}-\\d{4}$", message = "no concuerda con el patron xxxx-xxxx")
     @NotEmpty(message = "El campo del telefono movil no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 9 caracteres", max = 9)
     @Column(name = "tel_movil")
     private String telMovil;
 
-   @NotEmpty(message = "El campo del nombre del padre no debe estar vacio")
+    @NotEmpty(message = "El campo del nombre del padre no debe estar vacio")
     @Size(message = "El campo no debe contener mas de 100 caracteres", max = 100)
     @Column(name = "nombre_padre")
     private String nombrePadre;
@@ -76,7 +80,7 @@ public class Expediente {
     public Integer aprovadas;
     @Transient
     public Integer reprovadas;
-/*
+	/*
     @OneToMany(mappedBy="expediente",fetch= FetchType.EAGER)
     private List<Materia> materias;
 

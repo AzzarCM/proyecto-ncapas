@@ -24,7 +24,7 @@ public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 	@Query(nativeQuery=true, value ="SELECT COUNT(resultado) FROM PUBLIC.materia WHERE resultado = 'REPROBADO' and id_estudiante = :codigo")
 	public Integer materiaReprovada(Integer codigo) throws DataAccessException;
 
-	@Query(nativeQuery=true, value ="SELECT AVG(nota) FROM PUBLIC.materia WHERE id_estudiante = :codigo")
+	@Query(nativeQuery=true, value ="SELECT ROUND(CAST(AVG(nota) as numeric),2) FROM PUBLIC.materia WHERE id_estudiante =:codigo")
 	public Float promedioNotas(Integer codigo) throws DataAccessException;
 }
 

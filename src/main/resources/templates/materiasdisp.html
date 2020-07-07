@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Materias disponibles</title>
+    <title>Materias en curso</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/tablas.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container mt-5">
+    <h1>Listado de materias activas/inactivas</h1>
 
+    <section>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-dark">
+                <th class="text-center">Codigo</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Estado</th>
+            </tr>
+            </thead>
+            <th:block th:each="m : ${materias}">
+                <tr>
+                    <th th:text="${m.id_catmateria}" class="text-center"></th>
+                    <th th:text="${m.nombre}" class="text-center"></th>
+                    <th th:text="${m.estadoDelegate}" class="text-center"></th>
+                </tr>
+            </th:block>
+        </table>
+    </section>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a class="btn btn-warning mt-4 ml-4" href="/index">Regresar</a>
+    </div>
+</div>
 </body>
 </html>

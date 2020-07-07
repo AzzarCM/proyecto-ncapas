@@ -2,6 +2,8 @@ package com.uca.capas.proyecto.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -12,6 +14,8 @@ public class Departamento {
     @Column(name = "id_departamento")
     private Integer idDepartamento;
 
+    @NotEmpty(message = "el campo nombre debe estar vacio")
+    @Size(message = "El campo no debe contener mas de 150 caracteres", max = 150)
     @Column(name = "nombre")
     private String nombre;
 

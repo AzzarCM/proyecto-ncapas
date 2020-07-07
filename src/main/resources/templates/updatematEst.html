@@ -34,20 +34,16 @@
 			<option th:value="1" ><th class="text-center" th:text="03"></th></option>
 		</select>
 		<br>
-		<label class="col-form-label">Nota: <br> <input class="form-control"  placeholder="Ingrese la nota" type="number" id="nota" th:field="*{nota}" ></label><br>
+		<label class="col-form-label">Nota: <br> <input class="form-control"  placeholder="Ingrese la nota" type="number" step="0.01" id="nota" th:field="*{nota}" ></label><br>
 		<span th:errors="${materia.nota}" style="color:  #E81505;"></span>
-		 </div>
-			
 		
 			<div class="btn-group mr-4" role="group" aria-label="Third group">
                 <input type="submit"class="btn btn-info mb-4" value="Crear"/>
             </div>
-            
-            <div class="btn-group" role="group" aria-label="Third group">
-                <a class="btn btn-info mb-4"href="/materias">Regresar</a>
-            </div>
-		
-	
+
+			<div class="btn-group" role="group" aria-label="Third group">
+				<a class="btn btn-info mb-4"th:href="@{'/materiaEstudiante?id=' + ${aux}}">Regresar</a>
+			</div>
 	</form>
   </div>
 </div>

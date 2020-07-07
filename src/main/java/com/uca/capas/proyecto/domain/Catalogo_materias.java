@@ -2,6 +2,8 @@ package com.uca.capas.proyecto.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -12,10 +14,12 @@ public class Catalogo_materias {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_catmateria")
 	private Integer idCatmateria;
-	
+
+	@NotEmpty(message = "el campo nombre no debe estar vacio")
+	@Size(message = "El campo no debe contener mas de 150 caracteres", max = 150)
 	@Column(name="nombre")
 	private String nombre;
-	
+
 	@Column(name="estado")
 	private Boolean estado;
 

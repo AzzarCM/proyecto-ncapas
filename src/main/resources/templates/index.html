@@ -20,7 +20,7 @@
                         </div>
                         <div th:if="${rol == 'Coordinador'}">
                             <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/mainExpediente"> Expediente </a>
-                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="#"> Materias cursadas </a>
+                            <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="/encurso"> Materias en curso </a>
                         </div>
                         <hr class="my-4">
                         <form name="logoutForm" th:action="@{/logout}" method="post">

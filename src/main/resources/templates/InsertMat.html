@@ -31,7 +31,7 @@
 			<option th:value="1" ><th class="text-center" th:text="03"></th></option>
 		</select>
 		<br>
-		<label class="col-form-label">Nota: <br> <input class="form-control"  placeholder="Ingrese la nota" type="number" id="nota" th:field="*{nota}" ></label><br>
+		<label class="col-form-label">Nota: <br> <input class="form-control"  placeholder="Ingrese la nota" type="number" step="0.01" id="nota" th:field="*{nota}" ></label><br>
 		<span th:errors="${materia.nota}" style="color:  #E81505;"></span>
 		 </div>
 			

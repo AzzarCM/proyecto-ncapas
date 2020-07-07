@@ -14,7 +14,9 @@ public interface CatMateriaRepo extends JpaRepository<Catalogo_materias, Integer
 		
 	@Query(nativeQuery=true, value="SELECT * FROM public.catalogo_materias")
 	public List<Catalogo_materias> mostrarAllCat() throws DataAccessException;
-	
+
+	@Query(nativeQuery=true, value="SELECT * FROM catalogo_materias WHERE estado = true")
+	public List<Catalogo_materias> mostrarAllCatActive() throws DataAccessException;
 
 }
 
