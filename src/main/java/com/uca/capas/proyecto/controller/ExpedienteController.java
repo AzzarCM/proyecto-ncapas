@@ -208,11 +208,17 @@ public class ExpedienteController {
     public ModelAndView update(@RequestParam(value = "id")Integer id){
         ModelAndView mav = new ModelAndView();
         Expediente expediente = new Expediente();
+        CatalogoCE escuela = new CatalogoCE();
+        List<Departamento> departamentos;
             try{
+                departamentos = departamentoService.findAll();
                 expediente = expedienteService.findOne(id);
+                mav.addObject("departamento", departamentos);
             }catch (Exception e){
                 e.printStackTrace();
             }
+
+            mav.addObject("escuela", escuela);
             mav.addObject("expediente",expediente);
             mav.setViewName("updateexp");
         return mav;
@@ -222,10 +228,55 @@ public class ExpedienteController {
     public  ModelAndView buttomact(@Valid @ModelAttribute Expediente expediente,BindingResult result){
         ModelAndView mav = new ModelAndView();
         List<Expediente> expedientes = null;
+        CatalogoCE escuela = new CatalogoCE();
+        List<Departamento> departamentos;
         if(result.hasErrors()){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             mav.addObject("expediente",expediente);
             mav.setViewName("updateexp");
-        }else {
+        }
+        else if(expediente.getInstitucion().getMunicipio().getDepartamento().getIdDepartamento() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorDepartamento", "Seleccione un departamento");
+                mav.addObject("errorMunicipio", "Seleccione un municipio");
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("updateexp");
+        }
+        else if(expediente.getInstitucion().getMunicipio().getIdMunicipio() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorMunicipio", "Seleccione un municipio");
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("updateexp");
+        }
+        else if(expediente.getInstitucion().getIdCentroEscolar() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("updateexp");
+        }
+        else {
             try {
                 expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
                 expedienteService.save(expediente);
