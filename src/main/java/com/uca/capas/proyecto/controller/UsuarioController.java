@@ -76,8 +76,43 @@ public class UsuarioController {
         List<Departamento> departamentos;
         List<Rol> roles;
         if(result.hasErrors()){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("titulo", "Registro de usuario");
+            mav.addObject("ruta", "insertarUsuario");
+            mav.addObject("url", "login");
+            mav.addObject("btn", "Iniciar sesion");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
             mav.setViewName("nuevoUsuario");
-        }else{
+        }
+        if(usuario.getMunicipio().getDepartamento().getIdDepartamento() == 0){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("titulo", "Registro de usuario");
+            mav.addObject("ruta", "insertarUsuario");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+            mav.addObject("errorDepartamento", "Seleccione un departamento");
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("url", "login");
+            mav.addObject("btn", "Iniciar sesion");
+            mav.setViewName("nuevoUsuario");
+            return mav;
+        }else if(usuario.getMunicipio().getIdMunicipio() == 0){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("titulo", "Registro de usuario");
+            mav.addObject("ruta", "insertarUsuario");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("url", "login");
+            mav.addObject("btn", "Iniciar sesion");
+            mav.setViewName("nuevoUsuario");
+        }
+
+        else{
             try{
                 usuarios = usuarioService.findAll();
                 departamentos = departamentoService.findAll();
@@ -88,6 +123,8 @@ public class UsuarioController {
                         mav.addObject("ruta", "insertarUsuario");
                         mav.addObject("departamento", departamentos);
                         mav.addObject("rol", roles);
+                        mav.addObject("url", "usuarios");
+                        mav.addObject("btn", "Regresar");
                         mav.addObject("error", true);
                         mav.setViewName("nuevoUsuario");
                         return mav;
@@ -168,8 +205,41 @@ public class UsuarioController {
         List<Departamento> departamentos;
         List<Rol> roles;
         if(result.hasErrors()){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("edit", true);
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
             mav.setViewName("nuevoUsuario");
-        }else{
+        }
+        if(usuario.getMunicipio().getDepartamento().getIdDepartamento() == 0){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("titulo", "Registro de usuario");
+            mav.addObject("ruta", "insertarUsuario");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+            mav.addObject("edit", true);
+            mav.addObject("errorDepartamento", "Seleccione un departamento");
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("url", "usuarios");
+            mav.addObject("btn", "Regresar");
+            mav.setViewName("nuevoUsuario");
+            return mav;
+        }else if(usuario.getMunicipio().getIdMunicipio() == 0){
+            departamentos = departamentoService.findAll();
+            roles = rolService.findAll();
+            mav.addObject("edit", true);
+            mav.addObject("titulo", "Registro de usuario");
+            mav.addObject("ruta", "insertarUsuario");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("rol", roles);
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("url", "usuarios");
+            mav.addObject("btn", "Regresar");
+            mav.setViewName("nuevoUsuario");
+        }
+        else{
             try{
                 usuarios = usuarioService.findAll();
                 departamentos = departamentoService.findAll();

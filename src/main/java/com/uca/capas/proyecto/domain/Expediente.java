@@ -71,8 +71,10 @@ public class Expediente {
     @Column(name = "nombre_madre")
     private String nombreMadre;
 
-    @Column(name = "institucion")
-    private String institucion;
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="id_catce")
+    private CatalogoCE institucion;
+
 
     @Transient
     public Float promedio;
@@ -205,11 +207,11 @@ public class Expediente {
         this.nombreMadre = nombreMadre;
     }
 
-    public String getInstitucion() {
+    public CatalogoCE getInstitucion() {
         return institucion;
     }
 
-    public void setInstitucion(String institucion) {
+    public void setInstitucion(CatalogoCE institucion) {
         this.institucion = institucion;
     }
 

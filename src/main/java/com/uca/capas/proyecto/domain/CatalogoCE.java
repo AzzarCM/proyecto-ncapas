@@ -3,6 +3,7 @@ package com.uca.capas.proyecto.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(schema = "public", name = "catalogo_ce")
@@ -23,6 +24,9 @@ public class CatalogoCE {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_municipio")
     private Municipio municipio;
+
+    @OneToMany(mappedBy = "institucion", fetch = FetchType.EAGER)
+    private Set<Expediente> expedienteList;
 
     public CatalogoCE() {
     }
@@ -65,4 +69,11 @@ public class CatalogoCE {
             return estado ? "Activo" : "Inactivo";
     }
 
+    public Set<Expediente> getExpedienteList() {
+        return expedienteList;
+    }
+
+    public void setExpedienteList(Set<Expediente> expedienteList) {
+        this.expedienteList = expedienteList;
+    }
 }

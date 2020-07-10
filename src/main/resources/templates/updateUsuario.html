@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label class="col-form-label">Departamento</label>
                 <th>
-                    <select id="departamentoSelect" class="custom-select">
+                    <select th:field="*{municipio.departamento.idDepartamento}" id="departamentoSelect" class="custom-select">
                         <option th:each="d: ${departamento}" th:value="${d.idDepartamento}" th:text="${d.nombre}"
                                 th:selected="${d.idDepartamento} == *{municipio.departamento.idDepartamento}">
                         </option>

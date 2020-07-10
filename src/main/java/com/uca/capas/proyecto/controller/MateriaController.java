@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.uca.capas.proyecto.domain.Municipio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -86,32 +87,16 @@ public class MateriaController {
 			mav.setViewName("InsertMat");
 
 		} else {
-			System.out.println("entre al else");
 
 			if(materia.getNota()>=6) {
 				materia.setResultado("APROBADO");
 			} else {
 				materia.setResultado("REPROBADO");
 			}
-			System.out.println("valor de mi auxiliar: "+aux);
 			materia.setId_estudiante(aux);
-			
 			materiaService.save(materia);
-			
-
-			List<Materia> materias = null;
-			
-			try {
-				materias = materiaService.findAllMateriasEst(aux);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			mav.addObject("aux",aux);
-			mav.addObject("estudiante", nombre);
-			mav.addObject("materias", materias);
-			mav.setViewName("Materia");
+			mav.setViewName("redirect:/materiaEstudiante?id="+aux);
 		}
-		
 		return mav;
 	}
 

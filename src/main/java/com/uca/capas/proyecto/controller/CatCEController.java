@@ -3,17 +3,17 @@ package com.uca.capas.proyecto.controller;
 import com.uca.capas.proyecto.domain.CatalogoCE;
 import com.uca.capas.proyecto.domain.Catalogo_materias;
 import com.uca.capas.proyecto.domain.Departamento;
+import com.uca.capas.proyecto.domain.Municipio;
 import com.uca.capas.proyecto.service.CatalogoCEService;
 import com.uca.capas.proyecto.service.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +24,20 @@ public class CatCEController {
 
     @Autowired
     DepartamentoService departamentoService;
+
+    @GetMapping("/instituciones")
+    public @ResponseBody List<CatalogoCE> getInstituciones(@RequestParam int id){
+        List<CatalogoCE> institucionesLimpios = new ArrayList<>(), institucionesSucios = catalogoCEService.findById(id);
+        System.out.println(institucionesSucios.size());
+
+        for(CatalogoCE mun : institucionesSucios){
+            CatalogoCE aux = new CatalogoCE();
+            aux.setIdCentroEscolar(mun.getIdCentroEscolar());
+            aux.setNombre(mun.getNombre());
+            institucionesLimpios.add(aux);
+        }
+        return institucionesLimpios;
+    }
 
     @RequestMapping("/escolares")
     public ModelAndView materias() {
@@ -61,8 +75,8 @@ public class CatCEController {
     @RequestMapping("/saveEscuela")
     public ModelAndView actualizar(@Valid @ModelAttribute CatalogoCE escuela, BindingResult result){
         ModelAndView mav = new ModelAndView();
+        List<Departamento> departamentos;
         if(result.hasErrors()){
-            List<Departamento> departamentos;
             try{
                 String mensaje = result.getFieldError().getDefaultMessage();
                 mav.addObject("mensaje", mensaje);
@@ -74,7 +88,22 @@ public class CatCEController {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        }else{
+        }
+        if(escuela.getMunicipio().getDepartamento().getIdDepartamento() == 0){
+            departamentos = departamentoService.findAll();
+            mav.addObject("errorDepartamento", "Seleccione un departamento");
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("escuela", escuela);
+            mav.setViewName("crearCE");
+        }else if(escuela.getMunicipio().getIdMunicipio() == 0){
+            departamentos = departamentoService.findAll();
+            mav.addObject("errorMunicipio", "Seleccione un municipio");
+            mav.addObject("departamento", departamentos);
+            mav.addObject("escuela", escuela);
+            mav.setViewName("crearCE");
+        }
+        else{
             try{
                 catalogoCEService.save(escuela);
             }catch (Exception e){

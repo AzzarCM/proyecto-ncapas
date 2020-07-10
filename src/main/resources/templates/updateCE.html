@@ -21,7 +21,7 @@
                 <span th:errors="*{nombre}" style="color:#E81505"></span>
 
                 <label class="col-form-label">Departamento: </label>
-                <select class="custom-select" id="departamentoSelect">
+                <select th:field="*{municipio.departamento.idDepartamento}" class="custom-select" id="departamentoSelect">
                     <option th:each="d: ${departamento}"  th:value="${d.idDepartamento}"
                             th:text="${d.nombre}"
                             th:selected="${d.idDepartamento} == *{municipio.departamento.idDepartamento}"></option>

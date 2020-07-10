@@ -39,4 +39,9 @@ public class CatalogoCEServiceImpl implements CatalogoCEService {
     public List<CatalogoCE> filtrarCEporNombre(String nombre) throws DataAccessException {
         return catalogoCE.filtrarCEporNombre(nombre);
     }
+
+    @Override
+    public List<CatalogoCE> findById(Integer id) throws DataAccessException {
+        return catalogoCE.findMunicipioBy(id);
+    }
 }

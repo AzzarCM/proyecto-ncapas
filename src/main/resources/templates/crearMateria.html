@@ -19,11 +19,11 @@
                 <div class="form-group">
                     <label class="col-form-label">Estado</label>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${true}">
+                        <input type="radio" id="customRadio1" name="estado" class="custom-control-input"  th:value="${true}" th:checked="true">
                         <label class="custom-control-label" for="customRadio1">Activo</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" th:field="*{estado}" th:value="${false}">
+                        <input type="radio" id="customRadio2" name="estado" class="custom-control-input"  th:value="${false}">
                         <label class="custom-control-label" for="customRadio2">Inactivo</label>
                     </div>
                 </div>

@@ -94,25 +94,65 @@ public class ExpedienteController {
             }
             mav.addObject("escuela", escuela);
             mav.setViewName("expediente");
-        }else{
+        }
+        if(expediente.getInstitucion().getMunicipio().getDepartamento().getIdDepartamento() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorDepartamento", "Seleccione un departamento");
+                mav.addObject("errorMunicipio", "Seleccione un municipio");
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("expediente");
+        }
+        else if(expediente.getInstitucion().getMunicipio().getIdMunicipio() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorMunicipio", "Seleccione un municipio");
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("expediente");
+        }
+        else if(expediente.getInstitucion().getIdCentroEscolar() == 0){
+            try{
+                departamentos = departamentoService.findAll();
+                mav.addObject("errorInstituto", "Seleccione una institucion");
+                mav.addObject("departamento", departamentos);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            mav.addObject("escuela", escuela);
+            mav.setViewName("expediente");
+        }
+        else{
             String mensaje = "Expediente ingresado con exito!";
             try {
+                expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
+                expedienteService.save(expediente);
                 expedientes = expedienteService.findAll();
             }catch (Exception e){
                 e.printStackTrace();
             }
             for(Expediente m : expedientes){
-                m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+                if(materiaService.promedioNotas(m.getIdEstudiante()) == null){
+                    m.setPromedio((float) 0.0);
+                }else{
+                    m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+                }
                 m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
                 m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
             }
             mav.addObject("expedientes", expedientes);
             mav.addObject("mensaje", mensaje);
-            expediente.setEdad(CalcularEdad(expediente.getFechaNacimiento()));
-            expedienteService.save(expediente);
             mav.setViewName("principalexp");
         }
-
         mav.addObject("expediente", expediente);
         return mav;
     }
@@ -151,7 +191,11 @@ public class ExpedienteController {
             e.printStackTrace();
         }
         for(Expediente m : expedientes){
-            m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+            if(materiaService.promedioNotas(m.getIdEstudiante()) == null){
+                m.setPromedio((float) 0.0);
+            }else{
+                m.setPromedio(materiaService.promedioNotas(m.getIdEstudiante()));
+            }
             m.setAprovadas(materiaService.materiaAprovada(m.getIdEstudiante()));
             m.setReprovadas(materiaService.materiaReprovada(m.getIdEstudiante()));
         }

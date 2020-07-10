@@ -40,6 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/escuela").hasAuthority("Administrador")
                 .antMatchers("/escolares").hasAuthority("Administrador")
                 .antMatchers("/crearCE").hasAuthority("Administrador")
+                .antMatchers("/expediente").hasAuthority("Coordinador")
+                .antMatchers("/insertar").hasAuthority("Coordinador")
+                .antMatchers("/search").hasAuthority("Coordinador")
+                .antMatchers("/mainExpediente").hasAuthority("Coordinador")
+                .antMatchers("/updateExpediente").hasAuthority("Coordinador")
+                .antMatchers("/actualizarexp").hasAuthority("Coordinador")
+                .antMatchers("/materiaEstudiante").hasAuthority("Coordinador")
+                .antMatchers("/insertmatEst").hasAuthority("Coordinador")
+                .antMatchers("/saveMat").hasAuthority("Coordinador")
+                .antMatchers("/updatematEst").hasAuthority("Coordinador")
+                .antMatchers("/encurso").hasAuthority("Coordinador")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -57,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     if(exp.getClass().isAssignableFrom(BadCredentialsException.class)){
                         System.out.println("Invalid username or password.");
-                        res.sendRedirect("/login?error");
+                        res.sendRedirect("/login?invalid");
                     }else{
                        if(exp.getMessage().equals("Maximum sessions of 1 for this principal exceeded")){
                            res.sendRedirect("/login?max");
