@@ -1,0 +1,14 @@
+Instrucciones:
+Puerto: 8082
+Ruta de acceso: http://localhost:8082/login
+Nombre de base de datos: finalCapas
+Usario Administrador: admon
+Contraseña Administrador: admin
+Usario Coordinador: coor
+Contraseña Coordinador: admin
+
+Departamentos/Municipios que tienen Centro
+Escolar ya en la base de datos: 
+La Libertad/Santa Tecla
+San Miguel/Cuidad Barrios
+
